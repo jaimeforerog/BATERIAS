@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <PackageReference Include="Marten" Version="8.17.0" />
+    <PackageReference Include="Marten.AspNetCore" Version="8.17.0" />
+    <PackageReference Include="MediatR" Version="14.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Baterias.Application\Baterias.Application.csproj" />
+    <ProjectReference Include="..\Baterias.Infrastructure\Baterias.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

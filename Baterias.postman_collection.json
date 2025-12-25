@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "battery-control-api",
+		"name": "Battery Control API",
+		"description": "API para control de baterías de vehículos con Event Sourcing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Commands",
+			"item": [
+				{
+					"name": "Install Battery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"batteryId\": \"{{$guid}}\",\n  \"serialNumber\": \"BAT-001\",\n  \"model\": \"PowerMax 3000\",\n  \"vehicleId\": \"{{$guid}}\",\n  \"vehicleLicensePlate\": \"ABC123\",\n  \"initialVoltage\": 12.5,\n  \"installedBy\": \"Juan Pérez\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/batteries/install",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"batteries",
+								"install"
+							]
+						},
+						"description": "Instala una batería nueva en un vehículo"
+					},
+					"response": []
+				},
+				{
+					"name": "Record Maintenance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"batteryId\": \"{{batteryId}}\",\n  \"maintenanceType\": \"Charging\",\n  \"voltageReading\": 13.2,\n  \"healthStatus\": \"Good\",\n  \"notes\": \"Carga completa realizada\",\n  \"performedBy\": \"María González\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/batteries/{{batteryId}}/maintenance",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"batteries",
+								"{{batteryId}}",
+								"maintenance"
+							]
+						},
+						"description": "Registra un mantenimiento para una batería (Charging, Inspection, VoltageTest, LoadTest)"
+					},
+					"response": []
+				},
+				{
+					"name": "Replace Battery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"oldBatteryId\": \"{{batteryId}}\",\n  \"newBatteryId\": \"{{$guid}}\",\n  \"newBatterySerialNumber\": \"BAT-002\",\n  \"newBatteryModel\": \"PowerMax 4000\",\n  \"vehicleId\": \"{{vehicleId}}\",\n  \"vehicleLicensePlate\": \"ABC123\",\n  \"reason\": \"EndOfLife\",\n  \"finalVoltage\": 10.5,\n  \"newBatteryInitialVoltage\": 12.8,\n  \"replacedBy\": \"Carlos Rodríguez\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/batteries/replace",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"batteries",
+								"replace"
+							]
+						},
+						"description": "Reemplaza una batería instalada por una nueva (Reasons: EndOfLife, Defective, Upgrade, VehicleSold)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Queries",
+			"item": [
+				{
+					"name": "Get Battery by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/batteries/{{batteryId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"batteries",
+								"{{batteryId}}"
+							]
+						},
+						"description": "Obtiene el estado actual de una batería por su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Batteries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/batteries",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"batteries"
+							]
+						},
+						"description": "Lista todas las baterías en el sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Batteries by Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/batteries?status=Installed",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"batteries"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "Installed",
+									"description": "New, Installed, Removed, Disposed"
+								}
+							]
+						},
+						"description": "Lista baterías filtradas por estado (New, Installed, Removed, Disposed)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Maintenance History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/batteries/{{batteryId}}/maintenance-history",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"batteries",
+								"{{batteryId}}",
+								"maintenance-history"
+							]
+						},
+						"description": "Obtiene el historial completo de mantenimientos de una batería"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicle Battery",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicles/{{vehicleId}}/battery",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicles",
+								"{{vehicleId}}",
+								"battery"
+							]
+						},
+						"description": "Obtiene la batería actualmente instalada en un vehículo"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Battery Events (Debug)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/batteries/{{batteryId}}/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"batteries",
+								"{{batteryId}}",
+								"events"
+							]
+						},
+						"description": "Obtiene el event stream completo de una batería (para debugging/auditoría)"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5167",
+			"type": "string"
+		},
+		{
+			"key": "batteryId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "vehicleId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

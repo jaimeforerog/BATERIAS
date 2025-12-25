@@ -1,0 +1,52 @@
+[
+  {
+    "id": 101,
+    "placa": "MTC-001",
+    "descripcion": "Montacarga Toyota 3 Toneladas"
+  },
+  {
+    "id": 102,
+    "placa": "MTC-002",
+    "descripcion": "Montacarga Hyster 2.5 Toneladas"
+  },
+  {
+    "id": 103,
+    "placa": "MTC-003",
+    "descripcion": "Montacarga Clark 4 Toneladas"
+  },
+  {
+    "id": 104,
+    "placa": "TRN-001",
+    "descripcion": "Transpaleta Eléctrica Crown"
+  },
+  {
+    "id": 105,
+    "placa": "TRN-002",
+    "descripcion": "Transpaleta Manual BT"
+  },
+  {
+    "id": 106,
+    "placa": "APL-001",
+    "descripcion": "Apilador Reach Truck Linde"
+  },
+  {
+    "id": 107,
+    "placa": "APL-002",
+    "descripcion": "Apilador Crown 1.5 Toneladas"
+  },
+  {
+    "id": 108,
+    "placa": "BAR-001",
+    "descripcion": "Barredora Industrial Tennant"
+  },
+  {
+    "id": 109,
+    "placa": "MTC-004",
+    "descripcion": "Montacarga Yale 3.5 Toneladas"
+  },
+  {
+    "id": 110,
+    "placa": "RCL-001",
+    "descripcion": "Recolector de Pedidos Raymond"
+  }
+]

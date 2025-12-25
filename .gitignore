@@ -1,0 +1,37 @@
+# Visual Studio / Rider
+.idea/
+.vscode/
+*.swp
+*.suo
+*.user
+*.sln.docstates
+
+# Build Results
+[Bb]in/
+[Oo]bj/
+build/
+dist/
+out/
+
+# Dependencies
+node_modules/
+packages/
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+
+# Testing
+coverage/
+
+# Docker
+.dockerignore
+
+# Invalid files
+nul
+
