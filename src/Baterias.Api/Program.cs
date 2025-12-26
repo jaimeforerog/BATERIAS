@@ -47,7 +47,7 @@ builder.Services.AddCors(options =>
 // Add controllers with global filters
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add<Baterias.Api.Filters.ConcurrencyExceptionFilter>();
+    // options.Filters.Add<Baterias.Api.Filters.ConcurrencyExceptionFilter>();
 });
 
 // Add Swagger

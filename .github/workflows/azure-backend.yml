@@ -11,7 +11,6 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: baterias-api
-  DOCKER_IMAGE_NAME: baterias-backend
 
 jobs:
   build-and-deploy:
@@ -24,12 +23,12 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Log in to Azure Container Registry
+    - name: Log in to GitHub Container Registry
       uses: docker/login-action@v3
       with:
-        registry: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
-        username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
-        password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
@@ -37,13 +36,13 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }},${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/${{ env.DOCKER_IMAGE_NAME }}:latest
+        tags: ghcr.io/${{ github.repository_owner }}/baterias-backend:${{ github.sha }},ghcr.io/${{ github.repository_owner }}/baterias-backend:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
     - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
+      uses: azure/webapps-deploy@v3
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        images: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+        images: ghcr.io/${{ github.repository_owner }}/baterias-backend:${{ github.sha }}

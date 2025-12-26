@@ -1,5 +1,4 @@
 using Baterias.Application.Commands;
-using Baterias.Application.Commands;
 using Baterias.Domain.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
