@@ -31,6 +31,7 @@ export function MaintenanceForm({
   } = useForm<MaintenanceFormData>({
     resolver: zodResolver(maintenanceSchema),
     defaultValues: {
+      maintenanceDate: new Date().toISOString().split('T')[0], // Today's date in YYYY-MM-DD format
       type: undefined,
       voltageReading: undefined,
       healthStatus: undefined,
@@ -49,6 +50,23 @@ export function MaintenanceForm({
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Maintenance Date */}
+          <div className="space-y-2">
+            <Label htmlFor="maintenanceDate">
+              Fecha del Mantenimiento <span className="text-red-500">*</span>
+            </Label>
+            <input
+              id="maintenanceDate"
+              type="date"
+              {...register('maintenanceDate')}
+              className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              aria-invalid={!!errors.maintenanceDate}
+            />
+            {errors.maintenanceDate && (
+              <p className="text-sm text-red-600">{errors.maintenanceDate.message}</p>
+            )}
+          </div>
+
           {/* Maintenance Type */}
           <div className="space-y-2">
             <Label htmlFor="type">

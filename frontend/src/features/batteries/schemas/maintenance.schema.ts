@@ -2,6 +2,14 @@ import { z } from 'zod';
 import { MaintenanceType, HealthStatus } from '@/api/types';
 
 export const maintenanceSchema = z.object({
+  maintenanceDate: z
+    .string()
+    .min(1, 'La fecha del mantenimiento es requerida')
+    .refine(
+      (date) => !isNaN(new Date(date).getTime()),
+      'La fecha del mantenimiento no es válida'
+    ),
+
   type: z.number().refine(
     (val) => Object.values(MaintenanceType).includes(val as any),
     'Tipo de mantenimiento inválido'

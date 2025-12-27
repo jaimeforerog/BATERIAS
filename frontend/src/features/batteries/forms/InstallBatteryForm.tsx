@@ -41,6 +41,7 @@ export function InstallBatteryForm({
       equipoCodigo: '',
       equipoPlaca: '',
       equipoDescripcion: '',
+      installationDate: new Date().toISOString().split('T')[0], // Today's date in YYYY-MM-DD format
       initialVoltage: undefined,
       installedBy: '',
     } as any,
@@ -185,6 +186,21 @@ export function InstallBatteryForm({
           {/* Installation Information */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-slate-900">Información de Instalación</h3>
+
+            <div className="space-y-2">
+              <Label htmlFor="installationDate">
+                Fecha de Instalación <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="installationDate"
+                type="date"
+                {...register('installationDate')}
+                aria-invalid={!!errors.installationDate}
+              />
+              {errors.installationDate && (
+                <p className="text-sm text-red-600">{errors.installationDate.message}</p>
+              )}
+            </div>
 
             <div className="space-y-2">
               <Label htmlFor="installedBy">

@@ -25,6 +25,7 @@ public class InstallBatteryHandler : IRequestHandler<InstallBatteryCommand, Guid
         battery.Install(
             command.EquipoId,
             command.EquipoCodigo,
+            command.InstallationDate,
             command.InitialVoltage,
             command.InstalledBy
         );

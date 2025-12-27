@@ -25,6 +25,7 @@ public class BatteryAggregateTests
             model,
             equipoId,
             equipoCodigo,
+            DateTime.UtcNow,
             initialVoltage,
             installedBy
         );
@@ -64,12 +65,13 @@ public class BatteryAggregateTests
                 "PowerMax 3000",
                 equipoId,
                 "EQ-001",
+                DateTime.UtcNow,
                 invalidVoltage,
                 "Juan Pérez"
             )
         );
 
-        Assert.Contains("voltage", exception.Message.ToLower());
+        Assert.Contains("voltaje", exception.Message.ToLower());
     }
 
     [Fact]
@@ -87,6 +89,7 @@ public class BatteryAggregateTests
 
         // Act
         battery.RecordMaintenance(
+            DateTime.UtcNow,
             maintenanceType,
             voltageReading,
             healthStatus,
@@ -117,6 +120,7 @@ public class BatteryAggregateTests
         // Act & Assert
         var exception = Assert.Throws<InvalidOperationException>(() =>
             battery.RecordMaintenance(
+                DateTime.UtcNow,
                 MaintenanceType.Charging,
                 12.5m,
                 HealthStatus.Good,
@@ -125,7 +129,7 @@ public class BatteryAggregateTests
             )
         );
 
-        Assert.Contains("installed", exception.Message.ToLower());
+        Assert.Contains("instalad", exception.Message.ToLower());
     }
 
     [Fact]
@@ -168,7 +172,7 @@ public class BatteryAggregateTests
             battery.Replace(Guid.NewGuid(), BatteryRemovalReason.EndOfLife, "Tech2")
         );
 
-        Assert.Contains("installed", exception.Message.ToLower());
+        Assert.Contains("instalad", exception.Message.ToLower());
     }
 
     [Fact]
@@ -208,7 +212,8 @@ public class BatteryAggregateTests
         var @event = new MaintenanceRecorded(
             battery.Id,
             maintenanceId,
-            DateTime.UtcNow,
+            DateTime.UtcNow,     // Maintenance date
+            DateTime.UtcNow,     // Recorded at
             MaintenanceType.VoltageTest,
             13.8m,
             HealthStatus.Excellent,
@@ -259,6 +264,7 @@ public class BatteryAggregateTests
 
         // Act
         battery.RecordMaintenance(
+            DateTime.UtcNow,
             MaintenanceType.Charging,
             13.0m,
             HealthStatus.Good,
@@ -267,6 +273,7 @@ public class BatteryAggregateTests
         );
 
         battery.RecordMaintenance(
+            DateTime.UtcNow,
             MaintenanceType.Inspection,
             13.2m,
             HealthStatus.Good,
@@ -301,6 +308,7 @@ public class BatteryAggregateTests
             "PowerMax 3000",
             1,
             "EQ-001",
+            DateTime.UtcNow,
             12.5m,
             "Juan Pérez"
         );

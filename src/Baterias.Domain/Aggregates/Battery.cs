@@ -109,9 +109,50 @@ public class Battery
         return battery;
     }
 
+    // Static factory method for creating and installing a battery in one step (used in tests)
+    public static Battery Install(
+        Guid batteryId,
+        string serialNumber,
+        string model,
+        int equipoId,
+        string equipoCodigo,
+        DateTime installationDate,
+        decimal initialVoltage,
+        string installedBy)
+    {
+        // Validation
+        if (string.IsNullOrWhiteSpace(serialNumber))
+            throw new ArgumentException("El número de serie es requerido", nameof(serialNumber));
+
+        if (string.IsNullOrWhiteSpace(model))
+            throw new ArgumentException("El modelo es requerido", nameof(model));
+
+        if (initialVoltage < 10 || initialVoltage > 15)
+            throw new InvalidOperationException("Voltaje inválido. El voltaje inicial debe estar entre 10V y 15V");
+
+        if (string.IsNullOrWhiteSpace(installedBy))
+            throw new ArgumentException("El nombre del instalador es requerido", nameof(installedBy));
+
+        var battery = new Battery();
+        battery.RaiseEvent(new BatteryInstalled(
+            batteryId,
+            serialNumber,
+            model,
+            equipoId,
+            equipoCodigo,
+            installationDate,
+            initialVoltage,
+            installedBy
+        ));
+
+        return battery;
+    }
+
+    // Instance method for installing an already registered battery
     public void Install(
         int equipoId,
         string equipoCodigo,
+        DateTime installationDate,
         decimal initialVoltage,
         string installedBy)
     {
@@ -130,13 +171,14 @@ public class Battery
             Model,
             equipoId,
             equipoCodigo,
-            DateTime.UtcNow,
+            installationDate,
             initialVoltage,
             installedBy
         ));
     }
 
     public void RecordMaintenance(
+        DateTime maintenanceDate,
         MaintenanceType type,
         decimal voltageReading,
         HealthStatus healthStatus,
@@ -157,7 +199,8 @@ public class Battery
         RaiseEvent(new MaintenanceRecorded(
             Id,
             Guid.NewGuid(),
-            DateTime.UtcNow,
+            maintenanceDate,         // Fecha del mantenimiento
+            DateTime.UtcNow,         // Fecha de creación del registro
             type,
             voltageReading,
             healthStatus,

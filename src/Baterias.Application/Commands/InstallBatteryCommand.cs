@@ -8,6 +8,7 @@ public record InstallBatteryCommand(
     string Model,
     int EquipoId,
     string EquipoCodigo,
+    DateTime InstallationDate,
     decimal InitialVoltage,
     string InstalledBy
 ) : IRequest<Guid>;

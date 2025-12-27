@@ -86,7 +86,8 @@ public class MartenIntegrationTests : IAsyncLifetime
         var maintenanceEvent = new MaintenanceRecorded(
             batteryId,
             Guid.NewGuid(),
-            installDate.AddDays(7),
+            installDate.AddDays(7),  // Maintenance date
+            DateTime.UtcNow,          // Recorded at
             MaintenanceType.Charging,
             13.2m,
             HealthStatus.Good,
@@ -115,25 +116,41 @@ public class MartenIntegrationTests : IAsyncLifetime
     {
         // Arrange
         await using var session = _store!.LightweightSession();
-        var handler = new BatteryCommandHandler(session);
 
-        var command = new InstallBatteryCommand(
-            Guid.NewGuid(),
+        // First register the battery
+        var batteryId = Guid.NewGuid();
+        var registerCommand = new RegisterBatteryCommand(
+            batteryId,
+            "BAT-100",
+            "TestModel",
+            "TestBrand",
+            DateTime.UtcNow,
+            "Setup"
+        );
+        var registerHandler = new RegisterBatteryHandler(session);
+        await registerHandler.Handle(registerCommand, CancellationToken.None);
+
+        // Then install it
+        await using var session2 = _store!.LightweightSession();
+        var installCommand = new InstallBatteryCommand(
+            batteryId,
             "BAT-100",
             "TestModel",
             1,
             "EQ-100",
+            DateTime.UtcNow,
             12.5m,
             "Handler Test"
         );
+        var installHandler = new InstallBatteryHandler(session2);
 
         // Act
-        var batteryId = await handler.Handle(command);
+        await installHandler.Handle(installCommand, CancellationToken.None);
 
         // Assert
-        var battery = await session.Events.AggregateStreamAsync<Battery>(batteryId);
+        var battery = await session2.Events.AggregateStreamAsync<Battery>(batteryId);
         Assert.NotNull(battery);
-        Assert.Equal(command.SerialNumber, battery.SerialNumber);
+        Assert.Equal("BAT-100", battery.SerialNumber);
         Assert.Equal(BatteryStatus.Installed, battery.Status);
     }
 
@@ -142,43 +159,59 @@ public class MartenIntegrationTests : IAsyncLifetime
     {
         // Arrange
         await using var session = _store!.LightweightSession();
-        var handler = new BatteryCommandHandler(session);
+        var batteryId = Guid.NewGuid();
 
-        // Install battery first
+        // Register battery first
+        var registerCommand = new RegisterBatteryCommand(
+            batteryId,
+            "BAT-200",
+            "TestModel",
+            "TestBrand",
+            DateTime.UtcNow,
+            "Setup"
+        );
+        var registerHandler = new RegisterBatteryHandler(session);
+        await registerHandler.Handle(registerCommand, CancellationToken.None);
+
+        // Install battery
+        await using var session2 = _store!.LightweightSession();
         var installCommand = new InstallBatteryCommand(
-            Guid.NewGuid(),
+            batteryId,
             "BAT-200",
             "TestModel",
             2,
             "EQ-200",
+            DateTime.UtcNow,
             12.5m,
             "Setup"
         );
-        var batteryId = await handler.Handle(installCommand);
+        var installHandler = new InstallBatteryHandler(session2);
+        await installHandler.Handle(installCommand, CancellationToken.None);
 
         // Create new session for maintenance
-        await using var session2 = _store!.LightweightSession();
-        var handler2 = new BatteryCommandHandler(session2);
-
+        await using var session3 = _store!.LightweightSession();
         var maintenanceCommand = new RecordMaintenanceCommand(
             batteryId,
+            DateTime.UtcNow,
             MaintenanceType.VoltageTest,
             13.5m,
             HealthStatus.Excellent,
             "Test maintenance",
             "Tester"
         );
+        var maintenanceHandler = new RecordMaintenanceHandler(session3);
 
         // Act
-        await handler2.Handle(maintenanceCommand);
+        await maintenanceHandler.Handle(maintenanceCommand, CancellationToken.None);
 
         // Assert
-        var events = await session2.Events.FetchStreamAsync(batteryId);
-        Assert.Equal(2, events.Count);
-        Assert.IsType<BatteryInstalled>(events[0].Data);
-        Assert.IsType<MaintenanceRecorded>(events[1].Data);
+        var events = await session3.Events.FetchStreamAsync(batteryId);
+        Assert.Equal(3, events.Count); // BatteryRegistered, BatteryInstalled, MaintenanceRecorded
+        Assert.IsType<BatteryRegistered>(events[0].Data);
+        Assert.IsType<BatteryInstalled>(events[1].Data);
+        Assert.IsType<MaintenanceRecorded>(events[2].Data);
 
-        var battery = await session2.Events.AggregateStreamAsync<Battery>(batteryId);
+        var battery = await session3.Events.AggregateStreamAsync<Battery>(batteryId);
         Assert.Equal(13.5m, battery!.LastVoltageReading);
         Assert.Equal(HealthStatus.Excellent, battery.CurrentHealthStatus);
     }
@@ -188,29 +221,54 @@ public class MartenIntegrationTests : IAsyncLifetime
     {
         // Arrange
         await using var session = _store!.LightweightSession();
-        var handler = new BatteryCommandHandler(session);
-
         var equipoId = 3;
+        var oldBatteryId = Guid.NewGuid();
 
-        // Install first battery
+        // Register and install first battery
+        var registerCommand = new RegisterBatteryCommand(
+            oldBatteryId,
+            "BAT-OLD",
+            "OldModel",
+            "OldBrand",
+            DateTime.UtcNow,
+            "Setup"
+        );
+        var registerHandler = new RegisterBatteryHandler(session);
+        await registerHandler.Handle(registerCommand, CancellationToken.None);
+
+        await using var session2 = _store!.LightweightSession();
         var installCommand = new InstallBatteryCommand(
-            Guid.NewGuid(),
+            oldBatteryId,
             "BAT-OLD",
             "OldModel",
             equipoId,
             "EQ-OLD",
+            DateTime.UtcNow,
             12.5m,
             "Installer"
         );
-        var oldBatteryId = await handler.Handle(installCommand);
+        var installHandler = new InstallBatteryHandler(session2);
+        await installHandler.Handle(installCommand, CancellationToken.None);
+
+        // Register the new battery
+        await using var session3 = _store!.LightweightSession();
+        var newBatteryId = Guid.NewGuid();
+        var registerNewCommand = new RegisterBatteryCommand(
+            newBatteryId,
+            "BAT-NEW",
+            "NewModel",
+            "NewBrand",
+            DateTime.UtcNow,
+            "Setup"
+        );
+        var registerNewHandler = new RegisterBatteryHandler(session3);
+        await registerNewHandler.Handle(registerNewCommand, CancellationToken.None);
 
         // Create new session for replacement
-        await using var session2 = _store!.LightweightSession();
-        var handler2 = new BatteryCommandHandler(session2);
-
+        await using var session4 = _store!.LightweightSession();
         var replaceCommand = new ReplaceBatteryCommand(
             oldBatteryId,
-            Guid.NewGuid(),
+            newBatteryId,
             "BAT-NEW",
             "NewModel",
             equipoId,
@@ -219,18 +277,19 @@ public class MartenIntegrationTests : IAsyncLifetime
             12.8m,
             "Replacer"
         );
+        var replaceHandler = new ReplaceBatteryHandler(session4);
 
         // Act
-        var newBatteryId = await handler2.Handle(replaceCommand);
+        await replaceHandler.Handle(replaceCommand, CancellationToken.None);
 
         // Assert
         // Check old battery is removed
-        var oldBattery = await session2.Events.AggregateStreamAsync<Battery>(oldBatteryId);
+        var oldBattery = await session4.Events.AggregateStreamAsync<Battery>(oldBatteryId);
         Assert.Equal(BatteryStatus.Removed, oldBattery!.Status);
         Assert.Null(oldBattery.CurrentEquipoId);
 
         // Check new battery is installed
-        var newBattery = await session2.Events.AggregateStreamAsync<Battery>(newBatteryId);
+        var newBattery = await session4.Events.AggregateStreamAsync<Battery>(newBatteryId);
         Assert.Equal(BatteryStatus.Installed, newBattery!.Status);
         Assert.Equal(equipoId, newBattery.CurrentEquipoId);
     }
@@ -250,6 +309,7 @@ public class MartenIntegrationTests : IAsyncLifetime
             "MultiTest 3000",
             equipoId,
             "EQ-MULTI",
+            installDate,
             12.5m,
             "Tech"
         );
@@ -263,6 +323,7 @@ public class MartenIntegrationTests : IAsyncLifetime
         battery2!.ClearUncommittedEvents();
 
         battery2.RecordMaintenance(
+            DateTime.UtcNow,
             MaintenanceType.Charging,
             13.0m,
             HealthStatus.Good,
@@ -271,6 +332,7 @@ public class MartenIntegrationTests : IAsyncLifetime
         );
 
         battery2.RecordMaintenance(
+            DateTime.UtcNow,
             MaintenanceType.Inspection,
             13.2m,
             HealthStatus.Excellent,
@@ -312,6 +374,7 @@ public class MartenIntegrationTests : IAsyncLifetime
             "Lifecycle Test",
             equipoId,
             "EQ-LIFE",
+            DateTime.UtcNow,
             12.6m,
             "Installer"
         );
@@ -323,7 +386,7 @@ public class MartenIntegrationTests : IAsyncLifetime
         await using var session2 = _store!.LightweightSession();
         var battery2 = await session2.Events.AggregateStreamAsync<Battery>(batteryId);
         battery2!.ClearUncommittedEvents();
-        battery2.RecordMaintenance(MaintenanceType.Charging, 13.1m, HealthStatus.Good, "Charge", "Tech");
+        battery2.RecordMaintenance(DateTime.UtcNow, MaintenanceType.Charging, 13.1m, HealthStatus.Good, "Charge", "Tech");
         session2.Events.Append(batteryId, battery2.UncommittedEvents.ToArray());
         await session2.SaveChangesAsync();
 
@@ -331,7 +394,7 @@ public class MartenIntegrationTests : IAsyncLifetime
         await using var session3 = _store!.LightweightSession();
         var battery3 = await session3.Events.AggregateStreamAsync<Battery>(batteryId);
         battery3!.ClearUncommittedEvents();
-        battery3.RecordMaintenance(MaintenanceType.VoltageTest, 12.9m, HealthStatus.Fair, "Test", "Tech");
+        battery3.RecordMaintenance(DateTime.UtcNow, MaintenanceType.VoltageTest, 12.9m, HealthStatus.Fair, "Test", "Tech");
         session3.Events.Append(batteryId, battery3.UncommittedEvents.ToArray());
         await session3.SaveChangesAsync();
 

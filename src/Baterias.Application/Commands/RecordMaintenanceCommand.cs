@@ -5,6 +5,7 @@ namespace Baterias.Application.Commands;
 
 public record RecordMaintenanceCommand(
     Guid BatteryId,
+    DateTime MaintenanceDate,
     MaintenanceType Type,
     decimal VoltageReading,
     HealthStatus HealthStatus,

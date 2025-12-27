@@ -23,6 +23,7 @@ public class RecordMaintenanceHandler : IRequestHandler<RecordMaintenanceCommand
             throw new InvalidOperationException($"Battery {command.BatteryId} not found");
 
         battery.RecordMaintenance(
+            command.MaintenanceDate,
             command.Type,
             command.VoltageReading,
             command.HealthStatus,

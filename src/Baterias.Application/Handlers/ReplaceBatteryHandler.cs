@@ -37,6 +37,7 @@ public class ReplaceBatteryHandler : IRequestHandler<ReplaceBatteryCommand, Guid
         newBattery.Install(
             command.EquipoId,
             command.EquipoCodigo,
+            DateTime.UtcNow,
             command.NewBatteryInitialVoltage,
             command.ReplacedBy
         );

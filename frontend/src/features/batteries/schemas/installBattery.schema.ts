@@ -40,6 +40,14 @@ export const installBatterySchema = z.object({
     .max(200, 'La descripción no puede exceder 200 caracteres')
     .trim(),
 
+  installationDate: z
+    .string()
+    .min(1, 'La fecha de instalación es requerida')
+    .refine(
+      (date) => !isNaN(new Date(date).getTime()),
+      'La fecha de instalación no es válida'
+    ),
+
   initialVoltage: z
     .number()
     .positive('El voltaje debe ser un número positivo')

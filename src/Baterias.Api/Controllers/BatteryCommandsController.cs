@@ -82,6 +82,7 @@ public class BatteryCommandsController : ControllerBase
                 request.Model,
                 request.EquipoId,
                 request.EquipoCodigo,
+                request.InstallationDate,
                 request.InitialVoltage,
                 request.InstalledBy
             );
@@ -126,6 +127,7 @@ public class BatteryCommandsController : ControllerBase
         {
             var command = new RecordMaintenanceCommand(
                 id,
+                request.MaintenanceDate,
                 request.Type,
                 request.VoltageReading,
                 request.HealthStatus,
@@ -291,11 +293,13 @@ public record InstallBatteryRequest(
     string Model,
     int EquipoId,
     string EquipoCodigo,
+    DateTime InstallationDate,
     decimal InitialVoltage,
     string InstalledBy
 );
 
 public record RecordMaintenanceRequest(
+    DateTime MaintenanceDate,
     MaintenanceType Type,
     decimal VoltageReading,
     HealthStatus HealthStatus,
