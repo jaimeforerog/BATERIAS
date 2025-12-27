@@ -17,7 +17,7 @@ interface MaintenanceFormProps {
 }
 
 export function MaintenanceForm({
-  batteryId,
+  batteryId: _batteryId,
   batterySerialNumber,
   onSubmit,
   isSubmitting = false

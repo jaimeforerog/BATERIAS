@@ -15,7 +15,7 @@ interface DisposalFormProps {
 }
 
 export function DisposalForm({
-  batteryId,
+  batteryId: _batteryId,
   batterySerialNumber,
   onSubmit,
   isSubmitting = false

@@ -16,7 +16,7 @@ interface RemovalFormProps {
 }
 
 export function RemovalForm({
-  batteryId,
+  batteryId: _batteryId,
   batterySerialNumber,
   onSubmit,
   isSubmitting = false
