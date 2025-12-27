@@ -2,9 +2,7 @@ import { z } from 'zod';
 import { BatteryRemovalReason } from '@/api/types';
 
 export const removalSchema = z.object({
-  reason: z.nativeEnum(BatteryRemovalReason, {
-    errorMap: () => ({ message: 'Razón de remoción inválida' }),
-  }),
+  reason: z.nativeEnum(BatteryRemovalReason),
 
   notes: z
     .string()
