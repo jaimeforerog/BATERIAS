@@ -16,7 +16,7 @@ export default function InstallBatteryPage() {
     try {
       const result = await installBatteryMutation.mutateAsync(data);
 
-      // Navigate to the batteries list on success
+      // Navigate immediately - WebSocket will handle cache updates automatically
       navigate('/', {
         state: {
           message: `Batería ${data.serialNumber} instalada exitosamente. ID: ${result.batteryId}`

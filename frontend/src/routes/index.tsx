@@ -7,6 +7,7 @@ import MaintenancePage from '@/features/batteries/pages/MaintenancePage';
 import RemovalPage from '@/features/batteries/pages/RemovalPage';
 import DisposalPage from '@/features/batteries/pages/DisposalPage';
 
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -36,4 +37,5 @@ export const router = createBrowserRouter([
     path: '/batteries/:id/dispose',
     element: <DisposalPage />,
   },
+
 ]);

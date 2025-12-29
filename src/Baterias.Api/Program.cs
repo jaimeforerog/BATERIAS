@@ -9,9 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
                        ?? builder.Configuration.GetConnectionString("BatteryDatabase")!;
 
+// Add SignalR for real-time updates
+builder.Services.AddSignalR();
+
+// Register BatteryEventBroadcaster as singleton
+builder.Services.AddSingleton<Baterias.Infrastructure.SignalR.BatteryEventBroadcaster>();
+
 // Add Marten for Event Sourcing
-builder.Services.AddMarten((StoreOptions opts) =>
+builder.Services.AddMarten(sp =>
 {
+    var opts = new StoreOptions();
     opts.Connection(connectionString);
 
     // Register projections (inline for synchronous updates)
@@ -20,6 +27,11 @@ builder.Services.AddMarten((StoreOptions opts) =>
 
     // Enable Optimistic Concurrency
     opts.Schema.For<Baterias.Domain.Aggregates.Battery>().UseOptimisticConcurrency(true);
+
+    // Register event broadcaster for SignalR
+    opts.Listeners.Add(sp.GetRequiredService<Baterias.Infrastructure.SignalR.BatteryEventBroadcaster>());
+
+    return opts;
 })
 .UseLightweightSessions();
 
@@ -101,5 +113,8 @@ app.UseCors("AllowFrontend");
 app.MapHealthChecks("/health");
 
 app.MapControllers();
+
+// Map SignalR hub
+app.MapHub<Baterias.Infrastructure.SignalR.BatteryHub>("/hubs/battery");
 
 app.Run();
