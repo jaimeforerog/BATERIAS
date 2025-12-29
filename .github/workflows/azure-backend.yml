@@ -13,7 +13,38 @@ env:
   AZURE_WEBAPP_NAME: baterias-api
 
 jobs:
+  test:
+    name: Run Backend Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore src/Baterias.Domain.Tests/Baterias.Domain.Tests.csproj
+
+    - name: Build tests
+      run: dotnet build src/Baterias.Domain.Tests/Baterias.Domain.Tests.csproj --no-restore
+
+    - name: Run tests
+      run: dotnet test src/Baterias.Domain.Tests/Baterias.Domain.Tests.csproj --no-build --verbosity normal --collect:"XPlat Code Coverage"
+
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: backend-coverage
+        path: src/Baterias.Domain.Tests/TestResults/**/coverage.cobertura.xml
+
   build-and-deploy:
+    name: Build and Deploy to Azure
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       contents: read

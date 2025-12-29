@@ -1,0 +1,1054 @@
+<?xml version="1.0" encoding="utf-8"?>
+<coverage line-rate="0.7714" branch-rate="0.6428" version="1.9" timestamp="1767025287" lines-covered="189" lines-valid="245" branches-covered="36" branches-valid="56">
+  <sources>
+    <source>C:\Users\jaime.forero\RiderProjects\Baterias\src\Baterias.Domain\</source>
+  </sources>
+  <packages>
+    <package name="Baterias.Domain" line-rate="0.7714" branch-rate="0.6428" complexity="124">
+      <classes>
+        <class name="Baterias.Domain.Events.BatteryDisposed" filename="Events\BatteryDisposed.cs" line-rate="0.2857" branch-rate="1" complexity="6">
+          <methods>
+            <method name="get_BatteryId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="4" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_DisposalDate" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="5" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_DisposalReason" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="6" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Notes" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="7" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_DisposedBy" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="8" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(System.Guid,System.DateTime,System.String,System.String,System.String)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="3" hits="1" branch="False" />
+                <line number="9" hits="1" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="4" hits="0" branch="False" />
+            <line number="5" hits="0" branch="False" />
+            <line number="6" hits="0" branch="False" />
+            <line number="7" hits="0" branch="False" />
+            <line number="8" hits="0" branch="False" />
+            <line number="3" hits="1" branch="False" />
+            <line number="9" hits="1" branch="False" />
+          </lines>
+        </class>
+        <class name="Baterias.Domain.Events.BatteryInstalled" filename="Events\BatteryInstalled.cs" line-rate="0.8" branch-rate="1" complexity="9">
+          <methods>
+            <method name="get_BatteryId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="4" hits="12" branch="False" />
+              </lines>
+            </method>
+            <method name="get_BatterySerialNumber" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="5" hits="12" branch="False" />
+              </lines>
+            </method>
+            <method name="get_BatteryModel" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="6" hits="12" branch="False" />
+              </lines>
+            </method>
+            <method name="get_EquipoId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="7" hits="12" branch="False" />
+              </lines>
+            </method>
+            <method name="get_EquipoCodigo" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="8" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_InstallationDate" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="9" hits="12" branch="False" />
+              </lines>
+            </method>
+            <method name="get_InitialVoltage" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="10" hits="12" branch="False" />
+              </lines>
+            </method>
+            <method name="get_InstalledBy" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(System.Guid,System.String,System.String,System.Int32,System.String,System.DateTime,System.Decimal,System.String)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="3" hits="12" branch="False" />
+                <line number="12" hits="12" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="4" hits="12" branch="False" />
+            <line number="5" hits="12" branch="False" />
+            <line number="6" hits="12" branch="False" />
+            <line number="7" hits="12" branch="False" />
+            <line number="8" hits="0" branch="False" />
+            <line number="9" hits="12" branch="False" />
+            <line number="10" hits="12" branch="False" />
+            <line number="11" hits="0" branch="False" />
+            <line number="3" hits="12" branch="False" />
+            <line number="12" hits="12" branch="False" />
+          </lines>
+        </class>
+        <class name="Baterias.Domain.Events.BatteryRegistered" filename="Events\BatteryRegistered.cs" line-rate="0.875" branch-rate="1" complexity="7">
+          <methods>
+            <method name="get_BatteryId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="4" hits="19" branch="False" />
+              </lines>
+            </method>
+            <method name="get_SerialNumber" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="5" hits="19" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Model" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="6" hits="19" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Brand" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="7" hits="19" branch="False" />
+              </lines>
+            </method>
+            <method name="get_RegistrationDate" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="8" hits="19" branch="False" />
+              </lines>
+            </method>
+            <method name="get_RegisteredBy" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="9" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(System.Guid,System.String,System.String,System.String,System.DateTime,System.String)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="3" hits="19" branch="False" />
+                <line number="10" hits="19" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="4" hits="19" branch="False" />
+            <line number="5" hits="19" branch="False" />
+            <line number="6" hits="19" branch="False" />
+            <line number="7" hits="19" branch="False" />
+            <line number="8" hits="19" branch="False" />
+            <line number="9" hits="0" branch="False" />
+            <line number="3" hits="19" branch="False" />
+            <line number="10" hits="19" branch="False" />
+          </lines>
+        </class>
+        <class name="Baterias.Domain.Events.BatteryRemoved" filename="Events\BatteryRemoved.cs" line-rate="0.3333" branch-rate="1" complexity="8">
+          <methods>
+            <method name="get_BatteryId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="6" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_EquipoId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="7" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_RemovalDate" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="8" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Reason" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="9" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_FinalVoltage" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="10" hits="4" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Notes" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_RemovedBy" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="12" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(System.Guid,System.Int32,System.DateTime,Baterias.Domain.ValueObjects.BatteryRemovalReason,System.Decimal,System.String,System.String)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="5" hits="4" branch="False" />
+                <line number="13" hits="4" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="6" hits="0" branch="False" />
+            <line number="7" hits="0" branch="False" />
+            <line number="8" hits="0" branch="False" />
+            <line number="9" hits="0" branch="False" />
+            <line number="10" hits="4" branch="False" />
+            <line number="11" hits="0" branch="False" />
+            <line number="12" hits="0" branch="False" />
+            <line number="5" hits="4" branch="False" />
+            <line number="13" hits="4" branch="False" />
+          </lines>
+        </class>
+        <class name="Baterias.Domain.Events.BatteryReplaced" filename="Events\BatteryReplaced.cs" line-rate="0.5555" branch-rate="1" complexity="8">
+          <methods>
+            <method name="get_OldBatteryId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="6" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_NewBatteryId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="7" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_EquipoId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="8" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_ReplacementDate" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="9" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Reason" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="10" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_FinalVoltage" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_ReplacedBy" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="12" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(System.Guid,System.Guid,System.Int32,System.DateTime,Baterias.Domain.ValueObjects.BatteryRemovalReason,System.Decimal,System.String)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="5" hits="1" branch="False" />
+                <line number="13" hits="1" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="6" hits="1" branch="False" />
+            <line number="7" hits="1" branch="False" />
+            <line number="8" hits="0" branch="False" />
+            <line number="9" hits="0" branch="False" />
+            <line number="10" hits="0" branch="False" />
+            <line number="11" hits="1" branch="False" />
+            <line number="12" hits="0" branch="False" />
+            <line number="5" hits="1" branch="False" />
+            <line number="13" hits="1" branch="False" />
+          </lines>
+        </class>
+        <class name="Baterias.Domain.Events.MaintenanceRecorded" filename="Events\MaintenanceRecorded.cs" line-rate="0.4545" branch-rate="1" complexity="10">
+          <methods>
+            <method name="get_BatteryId" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="6" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_MaintenanceId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="7" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_MaintenanceDate" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="8" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_RecordedAt" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="9" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Type" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="10" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_VoltageReading" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_HealthStatus" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="12" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Notes" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="13" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_PerformedBy" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="14" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(System.Guid,System.Guid,System.DateTime,System.DateTime,Baterias.Domain.ValueObjects.MaintenanceType,System.Decimal,Baterias.Domain.ValueObjects.HealthStatus,System.String,System.String)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="5" hits="1" branch="False" />
+                <line number="15" hits="1" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="6" hits="0" branch="False" />
+            <line number="7" hits="1" branch="False" />
+            <line number="8" hits="0" branch="False" />
+            <line number="9" hits="0" branch="False" />
+            <line number="10" hits="0" branch="False" />
+            <line number="11" hits="1" branch="False" />
+            <line number="12" hits="1" branch="False" />
+            <line number="13" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+            <line number="5" hits="1" branch="False" />
+            <line number="15" hits="1" branch="False" />
+          </lines>
+        </class>
+        <class name="Baterias.Domain.Aggregates.Battery" filename="Aggregates\Battery.cs" line-rate="0.8323999999999999" branch-rate="0.6428" complexity="76">
+          <methods>
+            <method name="get_Id" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="10" hits="52" branch="False" />
+              </lines>
+            </method>
+            <method name="get_SerialNumber" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="63" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Model" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="12" hits="63" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Brand" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="13" hits="39" branch="False" />
+              </lines>
+            </method>
+            <method name="get_RegistrationDate" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="14" hits="20" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Status" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="15" hits="78" branch="False" />
+              </lines>
+            </method>
+            <method name="get_CurrentEquipoId" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="16" hits="25" branch="False" />
+              </lines>
+            </method>
+            <method name="get_InstallationDate" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="17" hits="13" branch="False" />
+              </lines>
+            </method>
+            <method name="get_LastVoltageReading" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="18" hits="25" branch="False" />
+              </lines>
+            </method>
+            <method name="get_CurrentHealthStatus" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="19" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name="get_MaintenanceHistory" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="20" hits="21" branch="False" />
+              </lines>
+            </method>
+            <method name="get_UncommittedEvents" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="22" hits="12" branch="False" />
+              </lines>
+            </method>
+            <method name="ClearUncommittedEvents" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="25" hits="5" branch="False" />
+                <line number="26" hits="5" branch="False" />
+                <line number="27" hits="5" branch="False" />
+              </lines>
+            </method>
+            <method name="Apply" signature="(Baterias.Domain.Events.BatteryRegistered)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="31" hits="19" branch="False" />
+                <line number="32" hits="19" branch="False" />
+                <line number="33" hits="19" branch="False" />
+                <line number="34" hits="19" branch="False" />
+                <line number="35" hits="19" branch="False" />
+                <line number="36" hits="19" branch="False" />
+                <line number="37" hits="19" branch="False" />
+                <line number="38" hits="19" branch="False" />
+              </lines>
+            </method>
+            <method name="Apply" signature="(Baterias.Domain.Events.BatteryInstalled)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="41" hits="12" branch="False" />
+                <line number="42" hits="12" branch="False" />
+                <line number="43" hits="12" branch="False" />
+                <line number="44" hits="12" branch="False" />
+                <line number="45" hits="12" branch="False" />
+                <line number="46" hits="12" branch="False" />
+                <line number="47" hits="12" branch="False" />
+                <line number="48" hits="12" branch="False" />
+                <line number="49" hits="12" branch="False" />
+              </lines>
+            </method>
+            <method name="Apply" signature="(Baterias.Domain.Events.MaintenanceRecorded)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="52" hits="1" branch="False" />
+                <line number="53" hits="1" branch="False" />
+                <line number="54" hits="1" branch="False" />
+                <line number="55" hits="1" branch="False" />
+                <line number="56" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Apply" signature="(Baterias.Domain.Events.BatteryReplaced)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="59" hits="1" branch="False" />
+                <line number="60" hits="1" branch="False" />
+                <line number="61" hits="1" branch="False" />
+                <line number="62" hits="1" branch="False" />
+                <line number="63" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Apply" signature="(Baterias.Domain.Events.BatteryRemoved)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="66" hits="4" branch="False" />
+                <line number="67" hits="4" branch="False" />
+                <line number="68" hits="4" branch="False" />
+                <line number="69" hits="4" branch="False" />
+                <line number="70" hits="4" branch="False" />
+              </lines>
+            </method>
+            <method name="Apply" signature="(Baterias.Domain.Events.BatteryDisposed)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="73" hits="1" branch="False" />
+                <line number="74" hits="1" branch="False" />
+                <line number="75" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Register" signature="(System.Guid,System.String,System.String,System.String,System.DateTime,System.String)" line-rate="0.95" branch-rate="0.875" complexity="8">
+              <lines>
+                <line number="85" hits="25" branch="False" />
+                <line number="87" hits="25" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="9" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="88" hits="2" branch="False" />
+                <line number="90" hits="23" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="35" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="91" hits="2" branch="False" />
+                <line number="93" hits="21" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="61" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="94" hits="2" branch="False" />
+                <line number="96" hits="19" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="90" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="97" hits="0" branch="False" />
+                <line number="99" hits="19" branch="False" />
+                <line number="100" hits="19" branch="False" />
+                <line number="101" hits="19" branch="False" />
+                <line number="102" hits="19" branch="False" />
+                <line number="103" hits="19" branch="False" />
+                <line number="104" hits="19" branch="False" />
+                <line number="105" hits="19" branch="False" />
+                <line number="106" hits="19" branch="False" />
+                <line number="107" hits="19" branch="False" />
+                <line number="109" hits="19" branch="False" />
+                <line number="110" hits="19" branch="False" />
+              </lines>
+            </method>
+            <method name="Install" signature="(System.Guid,System.String,System.String,System.Int32,System.String,System.DateTime,System.Decimal,System.String)" line-rate="0" branch-rate="0" complexity="10">
+              <lines>
+                <line number="122" hits="0" branch="False" />
+                <line number="124" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="9" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="125" hits="0" branch="False" />
+                <line number="127" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="35" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="128" hits="0" branch="False" />
+                <line number="130" hits="0" branch="True" condition-coverage="0% (0/4)">
+                  <conditions>
+                    <condition number="67" type="jump" coverage="0%" />
+                    <condition number="88" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="131" hits="0" branch="False" />
+                <line number="133" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="112" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="134" hits="0" branch="False" />
+                <line number="136" hits="0" branch="False" />
+                <line number="137" hits="0" branch="False" />
+                <line number="138" hits="0" branch="False" />
+                <line number="139" hits="0" branch="False" />
+                <line number="140" hits="0" branch="False" />
+                <line number="141" hits="0" branch="False" />
+                <line number="142" hits="0" branch="False" />
+                <line number="143" hits="0" branch="False" />
+                <line number="144" hits="0" branch="False" />
+                <line number="145" hits="0" branch="False" />
+                <line number="146" hits="0" branch="False" />
+                <line number="148" hits="0" branch="False" />
+                <line number="149" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="Install" signature="(System.Int32,System.String,System.DateTime,System.Decimal,System.String)" line-rate="0.9444" branch-rate="0.875" complexity="8">
+              <lines>
+                <line number="158" hits="17" branch="False" />
+                <line number="159" hits="17" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="12" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="160" hits="1" branch="False" />
+                <line number="162" hits="16" branch="True" condition-coverage="100% (4/4)">
+                  <conditions>
+                    <condition number="78" type="jump" coverage="100%" />
+                    <condition number="99" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="163" hits="4" branch="False" />
+                <line number="165" hits="12" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="121" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="166" hits="0" branch="False" />
+                <line number="168" hits="12" branch="False" />
+                <line number="169" hits="12" branch="False" />
+                <line number="170" hits="12" branch="False" />
+                <line number="171" hits="12" branch="False" />
+                <line number="172" hits="12" branch="False" />
+                <line number="173" hits="12" branch="False" />
+                <line number="174" hits="12" branch="False" />
+                <line number="175" hits="12" branch="False" />
+                <line number="176" hits="12" branch="False" />
+                <line number="177" hits="12" branch="False" />
+                <line number="178" hits="12" branch="False" />
+              </lines>
+            </method>
+            <method name="RecordMaintenance" signature="(System.DateTime,Baterias.Domain.ValueObjects.MaintenanceType,System.Decimal,Baterias.Domain.ValueObjects.HealthStatus,System.String,System.String)" line-rate="0.9523" branch-rate="0.8" complexity="10">
+              <lines>
+                <line number="187" hits="5" branch="False" />
+                <line number="188" hits="5" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="15" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="189" hits="1" branch="False" />
+                <line number="190" hits="1" branch="False" />
+                <line number="191" hits="1" branch="False" />
+                <line number="193" hits="4" branch="True" condition-coverage="100% (4/4)">
+                  <conditions>
+                    <condition number="101" type="jump" coverage="100%" />
+                    <condition number="121" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="194" hits="3" branch="False" />
+                <line number="196" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="148" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="197" hits="0" branch="False" />
+                <line number="199" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="191" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="200" hits="1" branch="False" />
+                <line number="201" hits="1" branch="False" />
+                <line number="202" hits="1" branch="False" />
+                <line number="203" hits="1" branch="False" />
+                <line number="204" hits="1" branch="False" />
+                <line number="205" hits="1" branch="False" />
+                <line number="206" hits="1" branch="False" />
+                <line number="207" hits="1" branch="False" />
+                <line number="208" hits="1" branch="False" />
+                <line number="209" hits="1" branch="False" />
+                <line number="210" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Remove" signature="(Baterias.Domain.ValueObjects.BatteryRemovalReason,System.String,System.String)" line-rate="0.9444" branch-rate="0.6666" complexity="6">
+              <lines>
+                <line number="216" hits="5" branch="False" />
+                <line number="217" hits="5" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="15" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="218" hits="1" branch="False" />
+                <line number="219" hits="1" branch="False" />
+                <line number="220" hits="1" branch="False" />
+                <line number="221" hits="1" branch="False" />
+                <line number="223" hits="4" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="98" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="224" hits="0" branch="False" />
+                <line number="226" hits="4" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="160" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="227" hits="4" branch="False" />
+                <line number="228" hits="4" branch="False" />
+                <line number="229" hits="4" branch="False" />
+                <line number="230" hits="4" branch="False" />
+                <line number="231" hits="4" branch="False" />
+                <line number="232" hits="4" branch="False" />
+                <line number="233" hits="4" branch="False" />
+                <line number="234" hits="4" branch="False" />
+                <line number="235" hits="4" branch="False" />
+              </lines>
+            </method>
+            <method name="Replace" signature="(System.Guid,Baterias.Domain.ValueObjects.BatteryRemovalReason,System.String)" line-rate="0.7222" branch-rate="0.5" complexity="4">
+              <lines>
+                <line number="241" hits="1" branch="False" />
+                <line number="242" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="15" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="243" hits="0" branch="False" />
+                <line number="244" hits="0" branch="False" />
+                <line number="245" hits="0" branch="False" />
+                <line number="246" hits="0" branch="False" />
+                <line number="248" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="98" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="249" hits="0" branch="False" />
+                <line number="251" hits="1" branch="False" />
+                <line number="252" hits="1" branch="False" />
+                <line number="253" hits="1" branch="False" />
+                <line number="254" hits="1" branch="False" />
+                <line number="255" hits="1" branch="False" />
+                <line number="256" hits="1" branch="False" />
+                <line number="257" hits="1" branch="False" />
+                <line number="258" hits="1" branch="False" />
+                <line number="259" hits="1" branch="False" />
+                <line number="260" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Dispose" signature="(System.DateTime,System.String,System.String,System.String)" line-rate="0.9473" branch-rate="0.75" complexity="8">
+              <lines>
+                <line number="267" hits="4" branch="False" />
+                <line number="268" hits="4" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="15" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="269" hits="1" branch="False" />
+                <line number="270" hits="1" branch="False" />
+                <line number="271" hits="1" branch="False" />
+                <line number="272" hits="1" branch="False" />
+                <line number="273" hits="1" branch="False" />
+                <line number="275" hits="3" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="98" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="276" hits="2" branch="False" />
+                <line number="278" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="125" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="279" hits="0" branch="False" />
+                <line number="281" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="154" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="282" hits="1" branch="False" />
+                <line number="283" hits="1" branch="False" />
+                <line number="284" hits="1" branch="False" />
+                <line number="285" hits="1" branch="False" />
+                <line number="286" hits="1" branch="False" />
+                <line number="287" hits="1" branch="False" />
+                <line number="288" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="RaiseEvent" signature="(System.Object)" line-rate="1" branch-rate="1" complexity="2">
+              <lines>
+                <line number="291" hits="38" branch="False" />
+                <line number="292" hits="38" branch="False" />
+                <line number="293" hits="38" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="19" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="294" hits="38" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="8" hits="19" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="10" hits="52" branch="False" />
+            <line number="11" hits="63" branch="False" />
+            <line number="12" hits="63" branch="False" />
+            <line number="13" hits="39" branch="False" />
+            <line number="14" hits="20" branch="False" />
+            <line number="15" hits="78" branch="False" />
+            <line number="16" hits="25" branch="False" />
+            <line number="17" hits="13" branch="False" />
+            <line number="18" hits="25" branch="False" />
+            <line number="19" hits="2" branch="False" />
+            <line number="20" hits="21" branch="False" />
+            <line number="22" hits="12" branch="False" />
+            <line number="25" hits="5" branch="False" />
+            <line number="26" hits="5" branch="False" />
+            <line number="27" hits="5" branch="False" />
+            <line number="31" hits="19" branch="False" />
+            <line number="32" hits="19" branch="False" />
+            <line number="33" hits="19" branch="False" />
+            <line number="34" hits="19" branch="False" />
+            <line number="35" hits="19" branch="False" />
+            <line number="36" hits="19" branch="False" />
+            <line number="37" hits="19" branch="False" />
+            <line number="38" hits="19" branch="False" />
+            <line number="41" hits="12" branch="False" />
+            <line number="42" hits="12" branch="False" />
+            <line number="43" hits="12" branch="False" />
+            <line number="44" hits="12" branch="False" />
+            <line number="45" hits="12" branch="False" />
+            <line number="46" hits="12" branch="False" />
+            <line number="47" hits="12" branch="False" />
+            <line number="48" hits="12" branch="False" />
+            <line number="49" hits="12" branch="False" />
+            <line number="52" hits="1" branch="False" />
+            <line number="53" hits="1" branch="False" />
+            <line number="54" hits="1" branch="False" />
+            <line number="55" hits="1" branch="False" />
+            <line number="56" hits="1" branch="False" />
+            <line number="59" hits="1" branch="False" />
+            <line number="60" hits="1" branch="False" />
+            <line number="61" hits="1" branch="False" />
+            <line number="62" hits="1" branch="False" />
+            <line number="63" hits="1" branch="False" />
+            <line number="66" hits="4" branch="False" />
+            <line number="67" hits="4" branch="False" />
+            <line number="68" hits="4" branch="False" />
+            <line number="69" hits="4" branch="False" />
+            <line number="70" hits="4" branch="False" />
+            <line number="73" hits="1" branch="False" />
+            <line number="74" hits="1" branch="False" />
+            <line number="75" hits="1" branch="False" />
+            <line number="85" hits="25" branch="False" />
+            <line number="87" hits="25" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="9" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="88" hits="2" branch="False" />
+            <line number="90" hits="23" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="35" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="91" hits="2" branch="False" />
+            <line number="93" hits="21" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="61" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="94" hits="2" branch="False" />
+            <line number="96" hits="19" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="90" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="97" hits="0" branch="False" />
+            <line number="99" hits="19" branch="False" />
+            <line number="100" hits="19" branch="False" />
+            <line number="101" hits="19" branch="False" />
+            <line number="102" hits="19" branch="False" />
+            <line number="103" hits="19" branch="False" />
+            <line number="104" hits="19" branch="False" />
+            <line number="105" hits="19" branch="False" />
+            <line number="106" hits="19" branch="False" />
+            <line number="107" hits="19" branch="False" />
+            <line number="109" hits="19" branch="False" />
+            <line number="110" hits="19" branch="False" />
+            <line number="122" hits="0" branch="False" />
+            <line number="124" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="9" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="125" hits="0" branch="False" />
+            <line number="127" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="35" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="128" hits="0" branch="False" />
+            <line number="130" hits="0" branch="True" condition-coverage="0% (0/4)">
+              <conditions>
+                <condition number="67" type="jump" coverage="0%" />
+                <condition number="88" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="131" hits="0" branch="False" />
+            <line number="133" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="112" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="134" hits="0" branch="False" />
+            <line number="136" hits="0" branch="False" />
+            <line number="137" hits="0" branch="False" />
+            <line number="138" hits="0" branch="False" />
+            <line number="139" hits="0" branch="False" />
+            <line number="140" hits="0" branch="False" />
+            <line number="141" hits="0" branch="False" />
+            <line number="142" hits="0" branch="False" />
+            <line number="143" hits="0" branch="False" />
+            <line number="144" hits="0" branch="False" />
+            <line number="145" hits="0" branch="False" />
+            <line number="146" hits="0" branch="False" />
+            <line number="148" hits="0" branch="False" />
+            <line number="149" hits="0" branch="False" />
+            <line number="158" hits="17" branch="False" />
+            <line number="159" hits="17" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="12" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="160" hits="1" branch="False" />
+            <line number="162" hits="16" branch="True" condition-coverage="100% (4/4)">
+              <conditions>
+                <condition number="78" type="jump" coverage="100%" />
+                <condition number="99" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="163" hits="4" branch="False" />
+            <line number="165" hits="12" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="121" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="166" hits="0" branch="False" />
+            <line number="168" hits="12" branch="False" />
+            <line number="169" hits="12" branch="False" />
+            <line number="170" hits="12" branch="False" />
+            <line number="171" hits="12" branch="False" />
+            <line number="172" hits="12" branch="False" />
+            <line number="173" hits="12" branch="False" />
+            <line number="174" hits="12" branch="False" />
+            <line number="175" hits="12" branch="False" />
+            <line number="176" hits="12" branch="False" />
+            <line number="177" hits="12" branch="False" />
+            <line number="178" hits="12" branch="False" />
+            <line number="187" hits="5" branch="False" />
+            <line number="188" hits="5" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="15" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="189" hits="1" branch="False" />
+            <line number="190" hits="1" branch="False" />
+            <line number="191" hits="1" branch="False" />
+            <line number="193" hits="4" branch="True" condition-coverage="100% (4/4)">
+              <conditions>
+                <condition number="101" type="jump" coverage="100%" />
+                <condition number="121" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="194" hits="3" branch="False" />
+            <line number="196" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="148" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="197" hits="0" branch="False" />
+            <line number="199" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="191" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="200" hits="1" branch="False" />
+            <line number="201" hits="1" branch="False" />
+            <line number="202" hits="1" branch="False" />
+            <line number="203" hits="1" branch="False" />
+            <line number="204" hits="1" branch="False" />
+            <line number="205" hits="1" branch="False" />
+            <line number="206" hits="1" branch="False" />
+            <line number="207" hits="1" branch="False" />
+            <line number="208" hits="1" branch="False" />
+            <line number="209" hits="1" branch="False" />
+            <line number="210" hits="1" branch="False" />
+            <line number="216" hits="5" branch="False" />
+            <line number="217" hits="5" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="15" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="218" hits="1" branch="False" />
+            <line number="219" hits="1" branch="False" />
+            <line number="220" hits="1" branch="False" />
+            <line number="221" hits="1" branch="False" />
+            <line number="223" hits="4" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="98" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="224" hits="0" branch="False" />
+            <line number="226" hits="4" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="160" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="227" hits="4" branch="False" />
+            <line number="228" hits="4" branch="False" />
+            <line number="229" hits="4" branch="False" />
+            <line number="230" hits="4" branch="False" />
+            <line number="231" hits="4" branch="False" />
+            <line number="232" hits="4" branch="False" />
+            <line number="233" hits="4" branch="False" />
+            <line number="234" hits="4" branch="False" />
+            <line number="235" hits="4" branch="False" />
+            <line number="241" hits="1" branch="False" />
+            <line number="242" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="15" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="243" hits="0" branch="False" />
+            <line number="244" hits="0" branch="False" />
+            <line number="245" hits="0" branch="False" />
+            <line number="246" hits="0" branch="False" />
+            <line number="248" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="98" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="249" hits="0" branch="False" />
+            <line number="251" hits="1" branch="False" />
+            <line number="252" hits="1" branch="False" />
+            <line number="253" hits="1" branch="False" />
+            <line number="254" hits="1" branch="False" />
+            <line number="255" hits="1" branch="False" />
+            <line number="256" hits="1" branch="False" />
+            <line number="257" hits="1" branch="False" />
+            <line number="258" hits="1" branch="False" />
+            <line number="259" hits="1" branch="False" />
+            <line number="260" hits="1" branch="False" />
+            <line number="267" hits="4" branch="False" />
+            <line number="268" hits="4" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="15" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="269" hits="1" branch="False" />
+            <line number="270" hits="1" branch="False" />
+            <line number="271" hits="1" branch="False" />
+            <line number="272" hits="1" branch="False" />
+            <line number="273" hits="1" branch="False" />
+            <line number="275" hits="3" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="98" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="276" hits="2" branch="False" />
+            <line number="278" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="125" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="279" hits="0" branch="False" />
+            <line number="281" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="154" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="282" hits="1" branch="False" />
+            <line number="283" hits="1" branch="False" />
+            <line number="284" hits="1" branch="False" />
+            <line number="285" hits="1" branch="False" />
+            <line number="286" hits="1" branch="False" />
+            <line number="287" hits="1" branch="False" />
+            <line number="288" hits="1" branch="False" />
+            <line number="291" hits="38" branch="False" />
+            <line number="292" hits="38" branch="False" />
+            <line number="293" hits="38" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="19" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="294" hits="38" branch="False" />
+            <line number="8" hits="19" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+  </packages>
+</coverage>
