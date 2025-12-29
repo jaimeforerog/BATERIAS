@@ -3,8 +3,8 @@
 ## Estado de Tests
 
 ![Backend Tests](https://img.shields.io/badge/backend%20tests-25%20passed-brightgreen)
-![Frontend Tests](https://img.shields.io/badge/frontend%20tests-4%20passed-brightgreen)
-![Total Coverage](https://img.shields.io/badge/coverage-80%25-green)
+![Frontend Tests](https://img.shields.io/badge/frontend%20tests-24%20passed-brightgreen)
+![Total Coverage](https://img.shields.io/badge/coverage-85%25-green)
 
 ## Resumen
 
@@ -12,11 +12,11 @@ Este proyecto implementa una suite completa de tests automatizados que cubren ta
 
 ### Estadísticas
 
-- **Total de Tests**: 29
+- **Total de Tests**: 49
 - **Backend (Domain)**: 25 tests
-- **Frontend (Hooks)**: 4 tests
+- **Frontend (Hooks)**: 24 tests
 - **Tasa de Éxito**: 100%
-- **Tiempo de Ejecución**: < 5 segundos
+- **Tiempo de Ejecución**: < 7 segundos
 
 ## Estructura de Tests
 
@@ -33,7 +33,10 @@ proyecto/
     │   ├── test/
     │   │   └── setup.ts                  # Configuración global de tests
     │   └── features/batteries/hooks/__tests__/
-    │       └── useInstallBattery.test.tsx  # 4 tests del hook
+    │       ├── useInstallBattery.test.tsx     # 4 tests
+    │       ├── useBatteries.test.tsx          # 6 tests
+    │       ├── useBattery.test.tsx            # 7 tests
+    │       └── useRecordMaintenance.test.tsx  # 7 tests
     └── vitest.config.ts
 ```
 
@@ -102,9 +105,9 @@ cd frontend && npm test -- --run
 | Componente | Cobertura | Tests |
 |------------|-----------|-------|
 | useInstallBattery | 100% | 4 |
-| useBatteries | 0% | - |
-| useBattery | 0% | - |
-| useRecordMaintenance | 0% | - |
+| useBatteries | 100% | 6 |
+| useBattery | 100% | 7 |
+| useRecordMaintenance | 100% | 7 |
 
 ## Tests del Backend
 
@@ -162,6 +165,41 @@ Tests del custom hook que maneja la instalación de baterías:
 **✅ Estado del Mutation**
 - isPending durante la mutación
 - Datos de respuesta correctos
+
+### useBatteries.test.tsx
+
+Tests del custom hook que obtiene la lista de baterías:
+
+**✅ Query Functionality** (6 tests)
+- Fetch de todas las baterías sin filtro
+- Fetch de baterías filtradas por estado
+- Estados de loading, success y error
+- Query key correcta para caching
+- Manejo de lista vacía
+
+### useBattery.test.tsx
+
+Tests del custom hook que obtiene una batería individual:
+
+**✅ Query Functionality** (7 tests)
+- Fetch de batería por ID
+- Query deshabilitada cuando ID está vacío
+- Estados de loading, success y error
+- Query key correcta para caching
+- Refetch al cambiar el ID
+- Respeta configuración de staleTime
+
+### useRecordMaintenance.test.tsx
+
+Tests del custom hook que registra mantenimiento:
+
+**✅ Mutation Functionality** (7 tests)
+- Llamada correcta a la API
+- Invalidación de queries relevantes
+- Estados de pending y error
+- Soporte para diferentes tipos de mantenimiento
+- Soporte para diferentes estados de salud
+- Registro secuencial de múltiples mantenimientos
 
 ### Ejemplo de Test
 
@@ -228,9 +266,10 @@ Agrega estos badges a tu README principal:
 
 ### Alta Prioridad
 - [ ] Tests de integración para API endpoints
-- [ ] Tests para otros hooks (useBatteries, useBattery)
+- [x] Tests para otros hooks (useBatteries, useBattery, useRecordMaintenance)
 - [ ] Tests de componentes React
-- [ ] Aumentar coverage a 85%+
+- [x] Aumentar coverage a 85%+
+- [ ] Tests para Application Handlers (Commands/Queries)
 
 ### Media Prioridad
 - [ ] Tests E2E con Playwright
