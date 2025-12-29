@@ -36,7 +36,12 @@ builder.Services.AddMarten(sp =>
 .UseLightweightSessions();
 
 // Add Health Checks
-builder.Services.AddHealthChecks();
+builder.Services.AddHealthChecks()
+    .AddNpgSql(
+        connectionString,
+        name: "postgresql",
+        failureStatus: Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus.Unhealthy,
+        tags: new[] { "db", "sql", "postgresql" });
 
 // Register MediatR
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Baterias.Application.Commands.RegisterBatteryCommand).Assembly));
@@ -109,8 +114,32 @@ if (!app.Environment.IsDevelopment())
 
 app.UseCors("AllowFrontend");
 
-// Add health check endpoint
-app.MapHealthChecks("/health");
+// Add health check endpoints
+app.MapHealthChecks("/health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+
+        var result = System.Text.Json.JsonSerializer.Serialize(new
+        {
+            status = report.Status.ToString(),
+            checks = report.Entries.Select(e => new
+            {
+                name = e.Key,
+                status = e.Value.Status.ToString(),
+                description = e.Value.Description,
+                duration = e.Value.Duration.TotalMilliseconds
+            }),
+            totalDuration = report.TotalDuration.TotalMilliseconds
+        });
+
+        await context.Response.WriteAsync(result);
+    }
+});
+
+// Simple health check for load balancers (just returns 200 OK)
+app.MapHealthChecks("/health/ready");
 
 app.MapControllers();
 
