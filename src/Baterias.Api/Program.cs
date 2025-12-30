@@ -51,13 +51,20 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Bat
 
 // Add CORS
 var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>()
-                     ?? new[] { "http://localhost:5173" };
+                     ?? new[] { "http://localhost:5173", "http://localhost:5174" };
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins(allowedOrigins)
+        policy.SetIsOriginAllowed(origin =>
+              {
+                  // Allow localhost for development
+                  if (origin.StartsWith("http://localhost:") || origin.StartsWith("https://localhost:"))
+                      return true;
+                  // Allow configured origins
+                  return allowedOrigins.Contains(origin);
+              })
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -123,6 +130,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
+app.UseRouting();
 app.UseCors("AllowFrontend");
 
 // Add health check endpoints

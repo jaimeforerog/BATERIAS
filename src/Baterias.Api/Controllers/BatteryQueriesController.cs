@@ -1,3 +1,4 @@
+using Baterias.Application.Documents;
 using Baterias.Application.Projections;
 using Baterias.Domain.ValueObjects;
 using Marten;
@@ -38,6 +39,9 @@ public class BatteryQueriesController : ControllerBase
             return NotFound(new { error = $"Batería {id} no encontrada" });
         }
 
+        // Enrich with brand information
+        await EnrichWithBrandInfo(battery, ct);
+
         return Ok(battery);
     }
 
@@ -64,6 +68,12 @@ public class BatteryQueriesController : ControllerBase
             _logger.LogInformation("Consultando todas las baterías");
             batteries = await _session.Query<BatteryStatusProjection>()
                 .ToListAsync(ct);
+        }
+
+        // Enrich all batteries with brand information
+        foreach (var battery in batteries)
+        {
+            await EnrichWithBrandInfo(battery, ct);
         }
 
         return Ok(batteries);
@@ -133,5 +143,21 @@ public class BatteryQueriesController : ControllerBase
         });
 
         return Ok(eventData);
+    }
+
+    /// <summary>
+    /// Enriquece una batería con información de marca desde BatteryBrandDocument
+    /// </summary>
+    private async Task EnrichWithBrandInfo(BatteryStatusProjection battery, CancellationToken ct)
+    {
+        if (battery.BrandId > 0)
+        {
+            var brandDoc = await _session.LoadAsync<BatteryBrandDocument>(battery.BrandId, ct);
+            if (brandDoc != null)
+            {
+                battery.BrandName = brandDoc.Name;
+                battery.BrandCategory = brandDoc.Category;
+            }
+        }
     }
 }

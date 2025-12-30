@@ -46,7 +46,7 @@ public class BatteryStatusProjectionHandler : SingleStreamProjection<BatteryStat
         if (int.TryParse(@event.Brand, out int brandId))
         {
             projection.BrandId = brandId;
-            // BrandName and BrandCategory will be populated by migration script or query
+            // BrandName and BrandCategory will be populated by query layer
         }
         // Legacy events with brand names will be handled by migration script
 
