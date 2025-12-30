@@ -10,7 +10,16 @@ public class BatteryStatusProjection
     public Guid Id { get; set; }
     public string SerialNumber { get; set; } = string.Empty;
     public string Model { get; set; } = string.Empty;
+
+    // New brand fields (ID-based)
+    public int BrandId { get; set; }
+    public string BrandName { get; set; } = string.Empty;
+    public string BrandCategory { get; set; } = string.Empty;
+
+    // Deprecated - kept for backward compatibility during migration
+    [Obsolete("Use BrandId, BrandName, and BrandCategory instead")]
     public string Brand { get; set; } = string.Empty;
+
     public DateTime RegistrationDate { get; set; }
     public BatteryStatus Status { get; set; }
     public int? CurrentEquipoId { get; set; }
@@ -29,7 +38,18 @@ public class BatteryStatusProjectionHandler : SingleStreamProjection<BatteryStat
         projection.Id = @event.BatteryId;
         projection.SerialNumber = @event.SerialNumber;
         projection.Model = @event.Model;
-        projection.Brand = @event.Brand;
+
+        // Handle both new events (BrandId as string) and legacy events (Brand name)
+        projection.Brand = @event.Brand; // Keep for backward compatibility
+
+        // Try to parse as BrandId (new events)
+        if (int.TryParse(@event.Brand, out int brandId))
+        {
+            projection.BrandId = brandId;
+            // BrandName and BrandCategory will be populated by migration script or query
+        }
+        // Legacy events with brand names will be handled by migration script
+
         projection.RegistrationDate = @event.RegistrationDate;
         projection.Status = BatteryStatus.New;
     }

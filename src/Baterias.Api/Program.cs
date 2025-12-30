@@ -28,6 +28,9 @@ builder.Services.AddMarten(sp =>
     // Enable Optimistic Concurrency
     opts.Schema.For<Baterias.Domain.Aggregates.Battery>().UseOptimisticConcurrency(true);
 
+    // Register Battery Brand documents
+    opts.Schema.For<Baterias.Application.Documents.BatteryBrandDocument>().Identity(x => x.Id);
+
     // Register event broadcaster for SignalR
     opts.Listeners.Add(sp.GetRequiredService<Baterias.Infrastructure.SignalR.BatteryEventBroadcaster>());
 
@@ -89,6 +92,14 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+// Seed battery brands
+using (var scope = app.Services.CreateScope())
+{
+    var session = scope.ServiceProvider.GetRequiredService<Marten.IDocumentSession>();
+    var seedService = new Baterias.Application.Services.BrandSeedService(session);
+    await seedService.SeedBrandsIfNeededAsync();
+}
 
 // Configure Swagger UI (enabled in all environments for API testing)
 app.UseSwagger();

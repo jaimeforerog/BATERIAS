@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useBrands } from '@/hooks/useBrands';
 
 interface RegisterBatteryFormProps {
   onSubmit: (data: RegisterBatteryFormData) => void;
@@ -17,6 +18,7 @@ export function RegisterBatteryForm({
   isSubmitting = false,
 }: RegisterBatteryFormProps) {
   const navigate = useNavigate();
+  const { data: brands, isLoading: brandsLoading } = useBrands();
 
   const {
     register,
@@ -27,7 +29,7 @@ export function RegisterBatteryForm({
     defaultValues: {
       serialNumber: '',
       model: '',
-      brand: '',
+      brandId: undefined,
       registrationDate: new Date().toISOString().split('T')[0], // Today's date
       registeredBy: '',
     },
@@ -64,17 +66,27 @@ export function RegisterBatteryForm({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="brand">
+                <Label htmlFor="brandId">
                   Marca <span className="text-red-500">*</span>
                 </Label>
-                <Input
-                  id="brand"
-                  placeholder="Ej: Trojan"
-                  {...register('brand')}
-                  aria-invalid={!!errors.brand}
-                />
-                {errors.brand && (
-                  <p className="text-sm text-red-600">{errors.brand.message}</p>
+                <select
+                  id="brandId"
+                  {...register('brandId', {
+                    setValueAs: (v) => v === '' ? undefined : parseInt(v, 10)
+                  })}
+                  disabled={brandsLoading}
+                  className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  aria-invalid={!!errors.brandId}
+                >
+                  <option value="">Selecciona una marca</option>
+                  {brands?.map((brand) => (
+                    <option key={brand.id} value={brand.id}>
+                      {brand.name} ({brand.category})
+                    </option>
+                  ))}
+                </select>
+                {errors.brandId && (
+                  <p className="text-sm text-red-600">{errors.brandId.message}</p>
                 )}
               </div>
 

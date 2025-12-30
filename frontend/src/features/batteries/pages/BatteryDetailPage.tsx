@@ -133,7 +133,10 @@ export default function BatteryDetailPage() {
               </div>
               <div>
                 <p className="text-sm font-medium text-slate-700">Marca</p>
-                <p className="text-lg text-slate-900">{battery.brand}</p>
+                <p className="text-lg text-slate-900">{battery.brandName}</p>
+                {battery.brandCategory && (
+                  <p className="text-xs text-slate-500">{battery.brandCategory}</p>
+                )}
               </div>
               <div>
                 <p className="text-sm font-medium text-slate-700">Fecha de Registro</p>

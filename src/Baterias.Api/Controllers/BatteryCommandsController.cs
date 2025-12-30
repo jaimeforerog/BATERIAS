@@ -36,7 +36,7 @@ public class BatteryCommandsController : ControllerBase
                 request.BatteryId ?? Guid.NewGuid(),
                 request.SerialNumber,
                 request.Model,
-                request.Brand,
+                request.BrandId,
                 request.RegistrationDate,
                 request.RegisteredBy
             );
@@ -282,7 +282,7 @@ public record RegisterBatteryRequest(
     Guid? BatteryId,
     string SerialNumber,
     string Model,
-    string Brand,
+    int BrandId,
     DateTime RegistrationDate,
     string RegisteredBy
 );

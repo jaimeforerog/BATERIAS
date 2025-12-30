@@ -1,4 +1,5 @@
 using Baterias.Application.Commands;
+using Baterias.Application.Documents;
 using Baterias.Domain.Aggregates;
 using Marten;
 using MediatR;
@@ -16,6 +17,11 @@ public class RegisterBatteryHandler : IRequestHandler<RegisterBatteryCommand, Gu
 
     public async Task<Guid> Handle(RegisterBatteryCommand command, CancellationToken ct)
     {
+        // Validate brand exists
+        var brand = await _session.LoadAsync<BatteryBrandDocument>(command.BrandId, ct);
+        if (brand == null)
+            throw new ArgumentException($"Marca inválida. El ID {command.BrandId} no existe", nameof(command.BrandId));
+
         var existingBattery = await _session.Events
             .AggregateStreamAsync<Battery>(command.BatteryId, token: ct);
 
@@ -29,11 +35,12 @@ public class RegisterBatteryHandler : IRequestHandler<RegisterBatteryCommand, Gu
         if (duplicateSerial != null)
             throw new InvalidOperationException($"Ya existe una batería con el número de serie {command.SerialNumber}");
 
+        // Convert BrandId to string for event (backward compatibility)
         var battery = Battery.Register(
             command.BatteryId,
             command.SerialNumber,
             command.Model,
-            command.Brand,
+            command.BrandId.ToString(),
             command.RegistrationDate,
             command.RegisteredBy
         );

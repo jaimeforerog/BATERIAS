@@ -201,7 +201,7 @@ export default function BatteriesListPage() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        {battery.brand || '-'}
+                        {battery.brandName || '-'}
                       </TableCell>
                       <TableCell>
                         {/* Use registrationDate if available, formatted */}

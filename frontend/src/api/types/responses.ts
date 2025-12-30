@@ -5,7 +5,16 @@ export interface BatteryStatusProjection {
   id: string;
   serialNumber: string;
   model: string;
-  brand: string;
+
+  // New brand fields (ID-based)
+  brandId: number;
+  brandName: string;
+  brandCategory: string;
+
+  // Deprecated - kept for backward compatibility
+  /** @deprecated Use brandId, brandName, and brandCategory instead */
+  brand?: string;
+
   registrationDate: string; // ISO Date
   status: BatteryStatus;
   currentEquipoId: number | null;

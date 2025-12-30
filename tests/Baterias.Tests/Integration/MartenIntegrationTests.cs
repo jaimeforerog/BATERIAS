@@ -18,11 +18,18 @@ public class MartenIntegrationTests : IAsyncLifetime
         _store = DocumentStore.For(options =>
         {
             options.Connection(ConnectionString);
+            // Register BatteryBrandDocument
+            options.Schema.For<Baterias.Application.Documents.BatteryBrandDocument>().Identity(x => x.Id);
         });
 
         // Clean database before tests
         await _store.Advanced.Clean.DeleteAllDocumentsAsync();
         await _store.Advanced.Clean.DeleteAllEventDataAsync();
+
+        // Seed battery brands for tests
+        await using var session = _store.LightweightSession();
+        var brandSeedService = new Baterias.Application.Services.BrandSeedService(session);
+        await brandSeedService.SeedBrandsIfNeededAsync();
     }
 
     public async Task DisposeAsync()
@@ -123,7 +130,7 @@ public class MartenIntegrationTests : IAsyncLifetime
             batteryId,
             "BAT-100",
             "TestModel",
-            "TestBrand",
+            1, // Bosch
             DateTime.UtcNow,
             "Setup"
         );
@@ -166,7 +173,7 @@ public class MartenIntegrationTests : IAsyncLifetime
             batteryId,
             "BAT-200",
             "TestModel",
-            "TestBrand",
+            1, // Bosch
             DateTime.UtcNow,
             "Setup"
         );
@@ -229,7 +236,7 @@ public class MartenIntegrationTests : IAsyncLifetime
             oldBatteryId,
             "BAT-OLD",
             "OldModel",
-            "OldBrand",
+            2, // Varta
             DateTime.UtcNow,
             "Setup"
         );
@@ -257,7 +264,7 @@ public class MartenIntegrationTests : IAsyncLifetime
             newBatteryId,
             "BAT-NEW",
             "NewModel",
-            "NewBrand",
+            3, // Optima
             DateTime.UtcNow,
             "Setup"
         );

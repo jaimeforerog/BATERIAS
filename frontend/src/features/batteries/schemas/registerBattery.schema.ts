@@ -13,11 +13,11 @@ export const registerBatterySchema = z.object({
     .max(100, 'El modelo no puede exceder 100 caracteres')
     .trim(),
 
-  brand: z
-    .string()
+  brandId: z
+    .number()
+    .int('La marca debe ser un número entero')
     .min(1, 'La marca es requerida')
-    .max(100, 'La marca no puede exceder 100 caracteres')
-    .trim(),
+    .max(18, 'Marca inválida'),
 
   registrationDate: z
     .string()

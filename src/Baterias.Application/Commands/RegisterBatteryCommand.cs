@@ -6,7 +6,7 @@ public record RegisterBatteryCommand(
     Guid BatteryId,
     string SerialNumber,
     string Model,
-    string Brand,
+    int BrandId,
     DateTime RegistrationDate,
     string RegisteredBy
 ) : IRequest<Guid>;

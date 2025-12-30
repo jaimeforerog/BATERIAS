@@ -5,8 +5,8 @@ export interface RegisterBatteryRequest {
   batteryId?: string;  // Opcional, se genera si no se proporciona
   serialNumber: string;
   model: string;
-  brand: string;
-  registrationDate: string; // ISO string 
+  brandId: number;  // ID de la marca (1-18)
+  registrationDate: string; // ISO string
   registeredBy: string;
 }
 
