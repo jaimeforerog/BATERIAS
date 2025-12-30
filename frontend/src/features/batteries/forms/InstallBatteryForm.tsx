@@ -30,6 +30,7 @@ export function InstallBatteryForm({
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<InstallBatteryFormData>({
     resolver: zodResolver(installBatterySchema),
@@ -47,17 +48,24 @@ export function InstallBatteryForm({
     } as any,
   });
 
+  // Watch form values to sync with readonly inputs
+  const serialNumber = watch('serialNumber');
+  const model = watch('model');
+  const equipoPlaca = watch('equipoPlaca');
+  const equipoCodigo = watch('equipoCodigo');
+  const equipoDescripcion = watch('equipoDescripcion');
+
   const handleEquipoSelect = (equipo: Equipo) => {
-    setValue('equipoId', equipo.id);
-    setValue('equipoCodigo', `EQ-${equipo.id.toString().padStart(3, '0')}`);
-    setValue('equipoPlaca', equipo.placa);
-    setValue('equipoDescripcion', equipo.descripcion);
+    setValue('equipoId', equipo.id, { shouldValidate: true, shouldDirty: true });
+    setValue('equipoCodigo', `EQ-${equipo.id.toString().padStart(3, '0')}`, { shouldValidate: true, shouldDirty: true });
+    setValue('equipoPlaca', equipo.placa, { shouldValidate: true, shouldDirty: true });
+    setValue('equipoDescripcion', equipo.descripcion, { shouldValidate: true, shouldDirty: true });
   };
 
   const handleBatterySelect = (battery: Battery) => {
-    setValue('batteryId', battery.id);
-    setValue('serialNumber', battery.serialNumber);
-    setValue('model', battery.model);
+    setValue('batteryId', battery.id, { shouldValidate: true, shouldDirty: true });
+    setValue('serialNumber', battery.serialNumber, { shouldValidate: true, shouldDirty: true });
+    setValue('model', battery.model, { shouldValidate: true, shouldDirty: true });
   };
 
   return (
@@ -81,6 +89,8 @@ export function InstallBatteryForm({
             />
 
             <input type="hidden" {...register('batteryId')} />
+            <input type="hidden" {...register('serialNumber')} />
+            <input type="hidden" {...register('model')} />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -89,7 +99,7 @@ export function InstallBatteryForm({
                 </Label>
                 <Input
                   id="serialNumber"
-                  {...register('serialNumber')}
+                  value={serialNumber}
                   readOnly
                   className="bg-slate-50"
                 />
@@ -101,7 +111,7 @@ export function InstallBatteryForm({
                 </Label>
                 <Input
                   id="model"
-                  {...register('model')}
+                  value={model}
                   readOnly
                   className="bg-slate-50"
                 />
@@ -135,12 +145,17 @@ export function InstallBatteryForm({
               error={errors.equipoId?.message}
             />
 
+            <input type="hidden" {...register('equipoId', { valueAsNumber: true })} />
+            <input type="hidden" {...register('equipoCodigo')} />
+            <input type="hidden" {...register('equipoPlaca')} />
+            <input type="hidden" {...register('equipoDescripcion')} />
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="equipoPlaca">Placa</Label>
                 <Input
                   id="equipoPlaca"
-                  {...register('equipoPlaca')}
+                  value={equipoPlaca}
                   readOnly
                   className="bg-slate-50"
                   aria-invalid={!!errors.equipoPlaca}
@@ -154,7 +169,7 @@ export function InstallBatteryForm({
                 <Label htmlFor="equipoCodigo">Código</Label>
                 <Input
                   id="equipoCodigo"
-                  {...register('equipoCodigo')}
+                  value={equipoCodigo}
                   readOnly
                   className="bg-slate-50"
                   aria-invalid={!!errors.equipoCodigo}
@@ -169,7 +184,7 @@ export function InstallBatteryForm({
               <Label htmlFor="equipoDescripcion">Descripción</Label>
               <Input
                 id="equipoDescripcion"
-                {...register('equipoDescripcion')}
+                value={equipoDescripcion}
                 readOnly
                 className="bg-slate-50"
                 aria-invalid={!!errors.equipoDescripcion}
@@ -178,9 +193,6 @@ export function InstallBatteryForm({
                 <p className="text-sm text-red-600">{errors.equipoDescripcion.message}</p>
               )}
             </div>
-
-            {/* Hidden field for equipoId */}
-            <input type="hidden" {...register('equipoId', { valueAsNumber: true })} />
           </div>
 
           {/* Installation Information */}
