@@ -159,5 +159,11 @@ public class BatteryQueriesController : ControllerBase
                 battery.BrandCategory = brandDoc.Category;
             }
         }
+        else if (!string.IsNullOrEmpty(battery.Brand))
+        {
+            // Handle legacy batteries with text-based Brand field
+            battery.BrandName = battery.Brand;
+            battery.BrandCategory = "Sin categoría";
+        }
     }
 }

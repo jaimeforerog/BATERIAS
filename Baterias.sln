@@ -2,6 +2,14 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{9A19103F-16F7-4668-BE54-9A1E7A4F7556}"
+	ProjectSection(SolutionItems) = preProject
+		frontend\package.json = frontend\package.json
+		frontend\vite.config.ts = frontend\vite.config.ts
+		frontend\tsconfig.json = frontend\tsconfig.json
+		frontend\README.md = frontend\README.md
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baterias.Api", "src\Baterias.Api\Baterias.Api.csproj", "{074FF87C-4D92-4405-A500-A3F89A6BB930}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baterias.Domain", "src\Baterias.Domain\Baterias.Domain.csproj", "{68D2CD5C-F825-4AA7-A215-8603B0F07C3D}"

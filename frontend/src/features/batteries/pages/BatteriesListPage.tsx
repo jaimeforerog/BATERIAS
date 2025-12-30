@@ -6,7 +6,6 @@ import { StatusBadge } from '@/components/shared/StatusBadge';
 import { HealthStatusBadge } from '@/components/shared/HealthStatusBadge';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import {
   Table,
   TableBody,
@@ -15,12 +14,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { formatDate, formatVoltage } from '@/utils/formatters';
+import { formatDateShort, formatVoltage } from '@/utils/formatters';
 import { batteryStatusLabels } from '@/utils/enumTranslations';
 import { BatteryStatus } from '@/api/types';
 import { Plus, ChevronLeft, ChevronRight, Download } from 'lucide-react';
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 10;
 
 export default function BatteriesListPage() {
   const navigate = useNavigate();
@@ -28,7 +27,11 @@ export default function BatteriesListPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isExporting, setIsExporting] = useState(false);
 
+  // Get filtered batteries based on status
   const { data: batteries, isLoading, error } = useBatteries(statusFilter);
+
+  // Get total batteries count (without filter) for header display
+  const { data: allBatteries } = useBatteries(undefined);
 
   if (isLoading) {
     return (
@@ -95,7 +98,7 @@ export default function BatteriesListPage() {
           <div>
             <h1 className="text-3xl font-bold text-slate-900">Control de Baterías</h1>
             <p className="text-slate-600 mt-2">
-              Sistema de gestión de baterías - {totalItems} baterías registradas
+              Sistema de gestión de baterías - {allBatteries?.length || 0} baterías en total
             </p>
           </div>
           <div className="flex gap-2">
@@ -127,9 +130,6 @@ export default function BatteriesListPage() {
             size="sm"
           >
             Todas
-            {statusFilter === undefined && batteries && (
-              <Badge variant="secondary" className="ml-2">{batteries.length}</Badge>
-            )}
           </Button>
           <Button
             variant={statusFilter === BatteryStatus.New ? 'default' : 'outline'}
@@ -205,7 +205,7 @@ export default function BatteriesListPage() {
                       </TableCell>
                       <TableCell>
                         {/* Use registrationDate if available, formatted */}
-                        {battery.registrationDate ? formatDate(battery.registrationDate) : '-'}
+                        {battery.registrationDate ? formatDateShort(battery.registrationDate) : '-'}
                       </TableCell>
                       <TableCell>
                         <StatusBadge status={battery.status} />
