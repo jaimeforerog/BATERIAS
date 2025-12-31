@@ -1,4 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { Layout } from '@/components/layout/Layout';
+import DashboardPage from '@/features/dashboard/pages/DashboardPage';
 import BatteriesListPage from '@/features/batteries/pages/BatteriesListPage';
 import RegisterBatteryPage from '@/features/batteries/pages/RegisterBatteryPage';
 import InstallBatteryPage from '@/features/batteries/pages/InstallBatteryPage';
@@ -11,31 +13,35 @@ import DisposalPage from '@/features/batteries/pages/DisposalPage';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <BatteriesListPage />,
+    element: <Layout><BatteriesListPage /></Layout>,
+  },
+  {
+    path: '/dashboard',
+    element: <Layout><DashboardPage /></Layout>,
   },
   {
     path: '/batteries/register',
-    element: <RegisterBatteryPage />,
+    element: <Layout><RegisterBatteryPage /></Layout>,
   },
   {
     path: '/batteries/install',
-    element: <InstallBatteryPage />,
+    element: <Layout><InstallBatteryPage /></Layout>,
   },
   {
     path: '/batteries/:id',
-    element: <BatteryDetailPage />,
+    element: <Layout><BatteryDetailPage /></Layout>,
   },
   {
     path: '/batteries/:id/maintenance',
-    element: <MaintenancePage />,
+    element: <Layout><MaintenancePage /></Layout>,
   },
   {
     path: '/batteries/:id/remove',
-    element: <RemovalPage />,
+    element: <Layout><RemovalPage /></Layout>,
   },
   {
     path: '/batteries/:id/dispose',
-    element: <DisposalPage />,
+    element: <Layout><DisposalPage /></Layout>,
   },
 
 ]);

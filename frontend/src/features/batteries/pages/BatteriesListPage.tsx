@@ -35,7 +35,7 @@ export default function BatteriesListPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 p-8">
+      <div className="p-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold mb-6">Cargando...</h1>
         </div>
@@ -45,7 +45,7 @@ export default function BatteriesListPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-50 p-8">
+      <div className="p-8">
         <div className="max-w-7xl mx-auto">
           <Card className="border-red-200 bg-red-50">
             <CardHeader>
@@ -92,7 +92,7 @@ export default function BatteriesListPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 p-8">
+    <div className="p-8">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8 flex items-start justify-between">
           <div>
