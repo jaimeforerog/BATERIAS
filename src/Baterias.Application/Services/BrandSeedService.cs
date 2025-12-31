@@ -20,7 +20,7 @@ public class BrandSeedService
     /// </summary>
     public static readonly BatteryBrandDocument[] PredefinedBrands = new[]
     {
-        new BatteryBrandDocument { Id = 1, Name = "Bosch", Category = "Premium Internacional" },
+        new BatteryBrandDocument { Id = 1, Name = "BOSCH", Category = "Premium Internacional" },
         new BatteryBrandDocument { Id = 2, Name = "Varta", Category = "Premium Internacional" },
         new BatteryBrandDocument { Id = 3, Name = "Optima", Category = "Premium Internacional" },
         new BatteryBrandDocument { Id = 4, Name = "ACDelco", Category = "Premium Internacional" },
