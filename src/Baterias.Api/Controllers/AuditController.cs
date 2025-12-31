@@ -37,28 +37,16 @@ public class AuditController : ControllerBase
         try
         {
             // Build query with filters
-            var query = _querySession.Query<AuditLogEntry>();
+            var baseQuery = _querySession.Query<AuditLogEntry>();
 
-            if (startDate.HasValue)
-                query = query.Where(e => e.EventTimestamp >= startDate.Value);
-
-            if (endDate.HasValue)
-                query = query.Where(e => e.EventTimestamp <= endDate.Value.AddDays(1).AddSeconds(-1));
-
-            if (!string.IsNullOrWhiteSpace(performedBy))
-                query = query.Where(e => e.PerformedBy.Contains(performedBy));
-
-            if (!string.IsNullOrWhiteSpace(serialNumber))
-                query = query.Where(e => e.SerialNumber.Contains(serialNumber));
-
-            if (!string.IsNullOrWhiteSpace(eventType))
-                query = query.Where(e => e.EventType == eventType);
+            // Apply filters using method chaining
+            var filteredQuery = ApplyFilters(baseQuery, startDate, endDate, performedBy, serialNumber, eventType);
 
             // Get total count before pagination
-            var totalCount = await query.CountAsync(ct);
+            var totalCount = await filteredQuery.CountAsync(ct);
 
             // Apply pagination and ordering
-            var events = await query
+            var events = await filteredQuery
                 .OrderByDescending(e => e.EventTimestamp)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -67,14 +55,13 @@ public class AuditController : ControllerBase
             _logger.LogInformation("Retrieved {Count} audit events (page {Page}, total {Total})",
                 events.Count, page, totalCount);
 
-            return Ok(new AuditEventResponse
-            {
-                Events = events,
-                TotalCount = totalCount,
-                Page = page,
-                PageSize = pageSize,
-                TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
-            });
+            return Ok(new AuditEventResponse(
+                events.ToList(),
+                totalCount,
+                page,
+                pageSize,
+                (int)Math.Ceiling(totalCount / (double)pageSize)
+            ));
         }
         catch (Exception ex)
         {
@@ -98,24 +85,10 @@ public class AuditController : ControllerBase
         try
         {
             // Build query with same filters (no pagination for export)
-            var query = _querySession.Query<AuditLogEntry>();
+            var baseQuery = _querySession.Query<AuditLogEntry>();
+            var filteredQuery = ApplyFilters(baseQuery, startDate, endDate, performedBy, serialNumber, eventType);
 
-            if (startDate.HasValue)
-                query = query.Where(e => e.EventTimestamp >= startDate.Value);
-
-            if (endDate.HasValue)
-                query = query.Where(e => e.EventTimestamp <= endDate.Value.AddDays(1).AddSeconds(-1));
-
-            if (!string.IsNullOrWhiteSpace(performedBy))
-                query = query.Where(e => e.PerformedBy.Contains(performedBy));
-
-            if (!string.IsNullOrWhiteSpace(serialNumber))
-                query = query.Where(e => e.SerialNumber.Contains(serialNumber));
-
-            if (!string.IsNullOrWhiteSpace(eventType))
-                query = query.Where(e => e.EventType == eventType);
-
-            var events = await query
+            var events = await filteredQuery
                 .OrderByDescending(e => e.EventTimestamp)
                 .Take(10000) // Limit to 10,000 records for performance
                 .ToListAsync(ct);
@@ -187,24 +160,10 @@ public class AuditController : ControllerBase
         try
         {
             // Build query with same filters
-            var query = _querySession.Query<AuditLogEntry>();
+            var baseQuery = _querySession.Query<AuditLogEntry>();
+            var filteredQuery = ApplyFilters(baseQuery, startDate, endDate, performedBy, serialNumber, eventType);
 
-            if (startDate.HasValue)
-                query = query.Where(e => e.EventTimestamp >= startDate.Value);
-
-            if (endDate.HasValue)
-                query = query.Where(e => e.EventTimestamp <= endDate.Value.AddDays(1).AddSeconds(-1));
-
-            if (!string.IsNullOrWhiteSpace(performedBy))
-                query = query.Where(e => e.PerformedBy.Contains(performedBy));
-
-            if (!string.IsNullOrWhiteSpace(serialNumber))
-                query = query.Where(e => e.SerialNumber.Contains(serialNumber));
-
-            if (!string.IsNullOrWhiteSpace(eventType))
-                query = query.Where(e => e.EventType == eventType);
-
-            var events = await query
+            var events = await filteredQuery
                 .OrderByDescending(e => e.EventTimestamp)
                 .Take(10000) // Limit to 10,000 records for performance
                 .ToListAsync(ct);
@@ -234,6 +193,32 @@ public class AuditController : ControllerBase
             _logger.LogError(ex, "Error exportando auditoría a CSV");
             return StatusCode(500, "Error generando el reporte");
         }
+    }
+
+    private static IQueryable<AuditLogEntry> ApplyFilters(
+        IQueryable<AuditLogEntry> query,
+        DateTime? startDate,
+        DateTime? endDate,
+        string? performedBy,
+        string? serialNumber,
+        string? eventType)
+    {
+        if (startDate.HasValue)
+            query = query.Where(e => e.EventTimestamp >= startDate.Value);
+
+        if (endDate.HasValue)
+            query = query.Where(e => e.EventTimestamp <= endDate.Value.AddDays(1).AddSeconds(-1));
+
+        if (!string.IsNullOrWhiteSpace(performedBy))
+            query = query.Where(e => e.PerformedBy.Contains(performedBy));
+
+        if (!string.IsNullOrWhiteSpace(serialNumber))
+            query = query.Where(e => e.SerialNumber.Contains(serialNumber));
+
+        if (!string.IsNullOrWhiteSpace(eventType))
+            query = query.Where(e => e.EventType == eventType);
+
+        return query;
     }
 
     private static string TranslateEventType(string eventType)
