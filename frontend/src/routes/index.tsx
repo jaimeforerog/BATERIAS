@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import DashboardPage from '@/features/dashboard/pages/DashboardPage';
+import MonitoringPage from '@/features/monitoring/pages/MonitoringPage';
 import BatteriesListPage from '@/features/batteries/pages/BatteriesListPage';
 import RegisterBatteryPage from '@/features/batteries/pages/RegisterBatteryPage';
 import InstallBatteryPage from '@/features/batteries/pages/InstallBatteryPage';
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <Layout><DashboardPage /></Layout>,
+  },
+  {
+    path: '/monitoring',
+    element: <Layout><MonitoringPage /></Layout>,
   },
   {
     path: '/batteries/register',

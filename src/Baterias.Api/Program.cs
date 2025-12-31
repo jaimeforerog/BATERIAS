@@ -5,6 +5,14 @@ using Marten;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add Application Insights telemetry
+builder.Services.AddApplicationInsightsTelemetry(options =>
+{
+    options.ConnectionString = builder.Configuration["ApplicationInsights:ConnectionString"];
+    options.EnableAdaptiveSampling = true;
+    options.EnableQuickPulseMetricStream = true;
+});
+
 // Get database connection string (from appsettings or environment variable)
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
                        ?? builder.Configuration.GetConnectionString("BatteryDatabase")!;
@@ -133,32 +141,24 @@ if (!app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseCors("AllowFrontend");
 
-// Add health check endpoints
+// Detailed health check endpoint with JSON response
 app.MapHealthChecks("/health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
 {
-    ResponseWriter = async (context, report) =>
-    {
-        context.Response.ContentType = "application/json";
-
-        var result = System.Text.Json.JsonSerializer.Serialize(new
-        {
-            status = report.Status.ToString(),
-            checks = report.Entries.Select(e => new
-            {
-                name = e.Key,
-                status = e.Value.Status.ToString(),
-                description = e.Value.Description,
-                duration = e.Value.Duration.TotalMilliseconds
-            }),
-            totalDuration = report.TotalDuration.TotalMilliseconds
-        });
-
-        await context.Response.WriteAsync(result);
-    }
+    ResponseWriter = HealthChecks.UI.Client.UIResponseWriter.WriteHealthCheckUIResponse
 });
 
-// Simple health check for load balancers (just returns 200 OK)
-app.MapHealthChecks("/health/ready");
+// Simple readiness check for load balancers (returns 200 OK if healthy)
+app.MapHealthChecks("/health/ready", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = _ => true,
+    AllowCachingResponses = false
+});
+
+// Liveness check (API is running)
+app.MapHealthChecks("/health/live", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = _ => false // No health checks, just returns 200 if app is running
+});
 
 app.MapControllers();
 
