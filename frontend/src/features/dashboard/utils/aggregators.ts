@@ -6,12 +6,14 @@ export interface StatusDistribution {
   name: string;
   value: number;
   status: BatteryStatus;
+  [key: string]: string | number;
 }
 
 export interface HealthDistribution {
   name: string;
   value: number;
   status: HealthStatus;
+  [key: string]: string | number;
 }
 
 export interface BrandDistribution {

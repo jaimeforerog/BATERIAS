@@ -44,7 +44,9 @@ export function HealthDistributionChart({ data }: HealthDistributionChartProps) 
               cx="50%"
               cy="50%"
               outerRadius={80}
-              label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+              label={({ name, percent }: { name?: string; percent?: number }) =>
+                `${name || ''} ${percent ? (percent * 100).toFixed(0) : 0}%`
+              }
             >
               {data.map((entry) => (
                 <Cell key={entry.status} fill={HEALTH_COLORS[entry.status]} />
