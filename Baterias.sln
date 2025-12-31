@@ -18,8 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baterias.Application", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baterias.Infrastructure", "src\Baterias.Infrastructure\Baterias.Infrastructure.csproj", "{4E4402A0-97EB-42F2-AEF1-27876BCFAF5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baterias.Tests", "tests\Baterias.Tests\Baterias.Tests.csproj", "{8F7B8246-7C5A-477B-8525-69F130FE1590}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,18 +76,6 @@ Global
 		{4E4402A0-97EB-42F2-AEF1-27876BCFAF5E}.Release|x64.Build.0 = Release|Any CPU
 		{4E4402A0-97EB-42F2-AEF1-27876BCFAF5E}.Release|x86.ActiveCfg = Release|Any CPU
 		{4E4402A0-97EB-42F2-AEF1-27876BCFAF5E}.Release|x86.Build.0 = Release|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Debug|x64.Build.0 = Debug|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Debug|x86.Build.0 = Debug|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Release|x64.ActiveCfg = Release|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Release|x64.Build.0 = Release|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Release|x86.ActiveCfg = Release|Any CPU
-		{8F7B8246-7C5A-477B-8525-69F130FE1590}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +85,5 @@ Global
 		{68D2CD5C-F825-4AA7-A215-8603B0F07C3D} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{0EA63870-9DE6-4696-9CEE-0FBA62139EAC} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{4E4402A0-97EB-42F2-AEF1-27876BCFAF5E} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
-		{8F7B8246-7C5A-477B-8525-69F130FE1590} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal
