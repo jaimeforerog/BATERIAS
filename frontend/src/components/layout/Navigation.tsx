@@ -1,12 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, List, Activity } from 'lucide-react';
+import { LayoutDashboard, List, Activity, FileText } from 'lucide-react';
 
 export function Navigation() {
   const location = useLocation();
   const isDashboard = location.pathname === '/dashboard';
   const isBatteriesList = location.pathname === '/' || location.pathname === '/batteries';
   const isMonitoring = location.pathname === '/monitoring';
+  const isAudit = location.pathname === '/audit';
 
   return (
     <nav className="bg-white border-b border-slate-200">
@@ -41,6 +42,15 @@ export function Navigation() {
               >
                 <Activity className="h-4 w-4" />
                 Monitoreo
+              </Button>
+            </Link>
+            <Link to="/audit">
+              <Button
+                variant={isAudit ? 'default' : 'outline'}
+                className="gap-2"
+              >
+                <FileText className="h-4 w-4" />
+                Auditoría
               </Button>
             </Link>
           </div>

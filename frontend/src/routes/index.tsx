@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import DashboardPage from '@/features/dashboard/pages/DashboardPage';
 import MonitoringPage from '@/features/monitoring/pages/MonitoringPage';
+import AuditReportPage from '@/features/audit/pages/AuditReportPage';
 import BatteriesListPage from '@/features/batteries/pages/BatteriesListPage';
 import RegisterBatteryPage from '@/features/batteries/pages/RegisterBatteryPage';
 import InstallBatteryPage from '@/features/batteries/pages/InstallBatteryPage';
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
   {
     path: '/monitoring',
     element: <Layout><MonitoringPage /></Layout>,
+  },
+  {
+    path: '/audit',
+    element: <Layout><AuditReportPage /></Layout>,
   },
   {
     path: '/batteries/register',

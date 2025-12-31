@@ -32,12 +32,21 @@ builder.Services.AddMarten(sp =>
     // Register projections (inline for synchronous updates)
     opts.Projections.Add<BatteryStatusProjectionHandler>(ProjectionLifecycle.Inline);
     opts.Projections.Add(new MaintenanceHistoryProjectionHandler(), ProjectionLifecycle.Inline);
+    opts.Projections.Add(new Baterias.Application.Projections.AuditLogProjectionHandler(), ProjectionLifecycle.Inline);
 
     // Enable Optimistic Concurrency
     opts.Schema.For<Baterias.Domain.Aggregates.Battery>().UseOptimisticConcurrency(true);
 
     // Register Battery Brand documents
     opts.Schema.For<Baterias.Application.Documents.BatteryBrandDocument>().Identity(x => x.Id);
+
+    // Register Audit Log with indexes for optimal querying
+    opts.Schema.For<Baterias.Application.Projections.AuditLogEntry>()
+        .Index(x => x.EventTimestamp)
+        .Index(x => x.PerformedBy)
+        .Index(x => x.SerialNumber)
+        .Index(x => x.EventType)
+        .Index(x => x.BatteryId);
 
     // Register event broadcaster for SignalR
     opts.Listeners.Add(sp.GetRequiredService<Baterias.Infrastructure.SignalR.BatteryEventBroadcaster>());
