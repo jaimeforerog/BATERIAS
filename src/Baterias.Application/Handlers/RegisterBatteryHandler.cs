@@ -35,13 +35,18 @@ public class RegisterBatteryHandler : IRequestHandler<RegisterBatteryCommand, Gu
         if (duplicateSerial != null)
             throw new InvalidOperationException($"Ya existe una batería con el número de serie {command.SerialNumber}");
 
+        // If RegistrationDate has no time component (00:00:00), add current time for audit purposes
+        var registrationTimestamp = command.RegistrationDate.TimeOfDay == TimeSpan.Zero
+            ? command.RegistrationDate.Date.Add(DateTime.Now.TimeOfDay)
+            : command.RegistrationDate;
+
         // Convert BrandId to string for event (backward compatibility)
         var battery = Battery.Register(
             command.BatteryId,
             command.SerialNumber,
             command.Model,
             command.BrandId.ToString(),
-            command.RegistrationDate,
+            registrationTimestamp,
             command.RegisteredBy
         );
 

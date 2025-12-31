@@ -11,11 +11,13 @@ namespace Baterias.Api.Controllers;
 public class AuditController : ControllerBase
 {
     private readonly IQuerySession _querySession;
+    private readonly IDocumentStore _documentStore;
     private readonly ILogger<AuditController> _logger;
 
-    public AuditController(IQuerySession querySession, ILogger<AuditController> logger)
+    public AuditController(IQuerySession querySession, IDocumentStore documentStore, ILogger<AuditController> logger)
     {
         _querySession = querySession;
+        _documentStore = documentStore;
         _logger = logger;
     }
 
@@ -192,6 +194,36 @@ public class AuditController : ControllerBase
         {
             _logger.LogError(ex, "Error exportando auditoría a CSV");
             return StatusCode(500, "Error generando el reporte");
+        }
+    }
+
+    /// <summary>
+    /// Reconstruye la proyección de auditoría desde todos los eventos históricos
+    /// </summary>
+    [HttpPost("rebuild")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> RebuildAuditProjection(CancellationToken ct = default)
+    {
+        try
+        {
+            _logger.LogInformation("Iniciando reconstrucción de proyección de auditoría...");
+
+            using var daemon = await _documentStore.BuildProjectionDaemonAsync();
+            await daemon.RebuildProjectionAsync<AuditLogEntry>(ct);
+
+            var count = await _querySession.Query<AuditLogEntry>().CountAsync(ct);
+
+            _logger.LogInformation("Proyección de auditoría reconstruida. Total de eventos: {Count}", count);
+
+            return Ok(new {
+                message = "Proyección de auditoría reconstruida exitosamente",
+                totalEvents = count
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error reconstruyendo proyección de auditoría");
+            return StatusCode(500, new { error = "Error al reconstruir la proyección de auditoría" });
         }
     }
 

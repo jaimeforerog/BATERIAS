@@ -16,7 +16,7 @@ import { ChevronLeft, ChevronRight, FileText } from 'lucide-react';
 import { format } from 'date-fns';
 import type { AuditFilters as AuditFiltersType } from '../types/audit.types';
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 10;
 
 export default function AuditReportPage() {
   const [filters, setFilters] = useState<AuditFiltersType>({});
