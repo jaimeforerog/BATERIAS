@@ -38,20 +38,11 @@ public class AuditController : ControllerBase
     {
         try
         {
-            // Log incoming filter dates for debugging
-            _logger.LogInformation("Audit query - StartDate: {StartDate} (Kind: {StartKind}), EndDate: {EndDate} (Kind: {EndKind})",
-                startDate, startDate?.Kind, endDate, endDate?.Kind);
-
             // Build query with filters
             var baseQuery = _querySession.Query<AuditLogEntry>();
 
             // Apply filters using method chaining
             var filteredQuery = ApplyFilters(baseQuery, startDate, endDate, performedBy, serialNumber, eventType);
-
-            // DEBUG: Get sample timestamps from database
-            var sampleEvents = await baseQuery.OrderByDescending(e => e.EventTimestamp).Take(5).ToListAsync(ct);
-            _logger.LogInformation("Sample timestamps from DB: {Timestamps}",
-                string.Join(", ", sampleEvents.Select(e => $"{e.EventTimestamp:yyyy-MM-dd HH:mm:ss} ({e.EventTimestamp.Kind})")));
 
             // Get total count before pagination
             var totalCount = await filteredQuery.CountAsync(ct);
@@ -254,9 +245,6 @@ public class AuditController : ControllerBase
                 ? TimeZoneInfo.ConvertTimeFromUtc(startDate.Value, colombiaTimeZone)
                 : startDate.Value;
             var unspecifiedStartDate = DateTime.SpecifyKind(localStartDate, DateTimeKind.Unspecified);
-
-            Console.WriteLine($"[AUDIT DEBUG] StartDate Filter - Original: {startDate.Value} ({startDate.Value.Kind}), Converted: {unspecifiedStartDate} ({unspecifiedStartDate.Kind})");
-
             query = query.Where(e => e.EventTimestamp >= unspecifiedStartDate);
         }
 
@@ -270,9 +258,6 @@ public class AuditController : ControllerBase
                 ? TimeZoneInfo.ConvertTimeFromUtc(endDate.Value, colombiaTimeZone)
                 : endDate.Value;
             var unspecifiedEndDate = DateTime.SpecifyKind(localEndDate, DateTimeKind.Unspecified);
-
-            Console.WriteLine($"[AUDIT DEBUG] EndDate Filter - Original: {endDate.Value} ({endDate.Value.Kind}), Converted: {unspecifiedEndDate} ({unspecifiedEndDate.Kind})");
-
             query = query.Where(e => e.EventTimestamp <= unspecifiedEndDate.AddDays(1).AddSeconds(-1));
         }
 
