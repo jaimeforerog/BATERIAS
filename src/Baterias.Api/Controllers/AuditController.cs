@@ -237,19 +237,23 @@ public class AuditController : ControllerBase
     {
         if (startDate.HasValue)
         {
-            // Convert UTC DateTime to Unspecified to avoid Npgsql UTC DateTime issues
-            var unspecifiedStartDate = startDate.Value.Kind == DateTimeKind.Utc
-                ? DateTime.SpecifyKind(startDate.Value, DateTimeKind.Unspecified)
+            // Convert UTC DateTime to Colombia time zone, then to Unspecified for PostgreSQL compatibility
+            var colombiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+            var localStartDate = startDate.Value.Kind == DateTimeKind.Utc
+                ? TimeZoneInfo.ConvertTimeFromUtc(startDate.Value, colombiaTimeZone)
                 : startDate.Value;
+            var unspecifiedStartDate = DateTime.SpecifyKind(localStartDate, DateTimeKind.Unspecified);
             query = query.Where(e => e.EventTimestamp >= unspecifiedStartDate);
         }
 
         if (endDate.HasValue)
         {
-            // Convert UTC DateTime to Unspecified to avoid Npgsql UTC DateTime issues
-            var unspecifiedEndDate = endDate.Value.Kind == DateTimeKind.Utc
-                ? DateTime.SpecifyKind(endDate.Value, DateTimeKind.Unspecified)
+            // Convert UTC DateTime to Colombia time zone, then to Unspecified for PostgreSQL compatibility
+            var colombiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+            var localEndDate = endDate.Value.Kind == DateTimeKind.Utc
+                ? TimeZoneInfo.ConvertTimeFromUtc(endDate.Value, colombiaTimeZone)
                 : endDate.Value;
+            var unspecifiedEndDate = DateTime.SpecifyKind(localEndDate, DateTimeKind.Unspecified);
             query = query.Where(e => e.EventTimestamp <= unspecifiedEndDate.AddDays(1).AddSeconds(-1));
         }
 
