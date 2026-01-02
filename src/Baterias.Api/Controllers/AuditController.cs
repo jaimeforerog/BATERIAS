@@ -237,20 +237,20 @@ public class AuditController : ControllerBase
     {
         if (startDate.HasValue)
         {
-            // Convert UTC to Local to avoid Npgsql UTC DateTime issues
-            var localStartDate = startDate.Value.Kind == DateTimeKind.Utc
-                ? startDate.Value.ToLocalTime()
+            // Convert UTC DateTime to Unspecified to avoid Npgsql UTC DateTime issues
+            var unspecifiedStartDate = startDate.Value.Kind == DateTimeKind.Utc
+                ? DateTime.SpecifyKind(startDate.Value, DateTimeKind.Unspecified)
                 : startDate.Value;
-            query = query.Where(e => e.EventTimestamp >= localStartDate);
+            query = query.Where(e => e.EventTimestamp >= unspecifiedStartDate);
         }
 
         if (endDate.HasValue)
         {
-            // Convert UTC to Local to avoid Npgsql UTC DateTime issues
-            var localEndDate = endDate.Value.Kind == DateTimeKind.Utc
-                ? endDate.Value.ToLocalTime()
+            // Convert UTC DateTime to Unspecified to avoid Npgsql UTC DateTime issues
+            var unspecifiedEndDate = endDate.Value.Kind == DateTimeKind.Utc
+                ? DateTime.SpecifyKind(endDate.Value, DateTimeKind.Unspecified)
                 : endDate.Value;
-            query = query.Where(e => e.EventTimestamp <= localEndDate.AddDays(1).AddSeconds(-1));
+            query = query.Where(e => e.EventTimestamp <= unspecifiedEndDate.AddDays(1).AddSeconds(-1));
         }
 
         if (!string.IsNullOrWhiteSpace(performedBy))
