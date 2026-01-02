@@ -48,6 +48,11 @@ public class AuditController : ControllerBase
             // Apply filters using method chaining
             var filteredQuery = ApplyFilters(baseQuery, startDate, endDate, performedBy, serialNumber, eventType);
 
+            // DEBUG: Get sample timestamps from database
+            var sampleEvents = await baseQuery.OrderByDescending(e => e.EventTimestamp).Take(5).ToListAsync(ct);
+            _logger.LogInformation("Sample timestamps from DB: {Timestamps}",
+                string.Join(", ", sampleEvents.Select(e => $"{e.EventTimestamp:yyyy-MM-dd HH:mm:ss} ({e.EventTimestamp.Kind})")));
+
             // Get total count before pagination
             var totalCount = await filteredQuery.CountAsync(ct);
 
