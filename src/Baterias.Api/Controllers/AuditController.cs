@@ -38,6 +38,10 @@ public class AuditController : ControllerBase
     {
         try
         {
+            // Log incoming filter dates for debugging
+            _logger.LogInformation("Audit query - StartDate: {StartDate} (Kind: {StartKind}), EndDate: {EndDate} (Kind: {EndKind})",
+                startDate, startDate?.Kind, endDate, endDate?.Kind);
+
             // Build query with filters
             var baseQuery = _querySession.Query<AuditLogEntry>();
 
@@ -238,22 +242,32 @@ public class AuditController : ControllerBase
         if (startDate.HasValue)
         {
             // Convert UTC DateTime to Colombia time zone, then to Unspecified for PostgreSQL compatibility
-            var colombiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+            // Use IANA timezone ID for cross-platform compatibility (Windows/Linux/Azure)
+            var colombiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById(
+                OperatingSystem.IsWindows() ? "SA Pacific Standard Time" : "America/Bogota");
             var localStartDate = startDate.Value.Kind == DateTimeKind.Utc
                 ? TimeZoneInfo.ConvertTimeFromUtc(startDate.Value, colombiaTimeZone)
                 : startDate.Value;
             var unspecifiedStartDate = DateTime.SpecifyKind(localStartDate, DateTimeKind.Unspecified);
+
+            Console.WriteLine($"[AUDIT DEBUG] StartDate Filter - Original: {startDate.Value} ({startDate.Value.Kind}), Converted: {unspecifiedStartDate} ({unspecifiedStartDate.Kind})");
+
             query = query.Where(e => e.EventTimestamp >= unspecifiedStartDate);
         }
 
         if (endDate.HasValue)
         {
             // Convert UTC DateTime to Colombia time zone, then to Unspecified for PostgreSQL compatibility
-            var colombiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+            // Use IANA timezone ID for cross-platform compatibility (Windows/Linux/Azure)
+            var colombiaTimeZone = TimeZoneInfo.FindSystemTimeZoneById(
+                OperatingSystem.IsWindows() ? "SA Pacific Standard Time" : "America/Bogota");
             var localEndDate = endDate.Value.Kind == DateTimeKind.Utc
                 ? TimeZoneInfo.ConvertTimeFromUtc(endDate.Value, colombiaTimeZone)
                 : endDate.Value;
             var unspecifiedEndDate = DateTime.SpecifyKind(localEndDate, DateTimeKind.Unspecified);
+
+            Console.WriteLine($"[AUDIT DEBUG] EndDate Filter - Original: {endDate.Value} ({endDate.Value.Kind}), Converted: {unspecifiedEndDate} ({unspecifiedEndDate.Kind})");
+
             query = query.Where(e => e.EventTimestamp <= unspecifiedEndDate.AddDays(1).AddSeconds(-1));
         }
 
