@@ -19,7 +19,15 @@ import type { AuditFilters as AuditFiltersType } from '../types/audit.types';
 const PAGE_SIZE = 10;
 
 export default function AuditReportPage() {
-  const [filters, setFilters] = useState<AuditFiltersType>({});
+  const [filters, setFilters] = useState<AuditFiltersType>(() => {
+    const endDate = new Date();
+    const startDate = new Date();
+    startDate.setMonth(startDate.getMonth() - 1);
+    return {
+      startDate,
+      endDate,
+    };
+  });
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isLoading, error } = useAuditEvents(filters, currentPage, PAGE_SIZE);
